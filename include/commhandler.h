@@ -42,7 +42,11 @@ signals:
     void haveTextMessage(QString message); // status, debug only
     void sendDataOutToPort(const QByteArray &writeData); // used to re-send data
     void haveDataFromPort(QByteArray data); // emit this when we have data, connect to rigcommander
+<<<<<<< HEAD:include/commhandler.h
     void havePortError(errorType err);
+=======
+    void haveSerialPortError(const QString port, const QString error);
+>>>>>>> 68e633f9 (Add widget to rhs of statusBar):commhandler.h
     void haveStatusUpdate(const QString text);
 
 private:
