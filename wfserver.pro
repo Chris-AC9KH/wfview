@@ -135,7 +135,7 @@ macx:LIBS += -L/usr/local/lib -L/opt/local/lib
 
 macx:ICON = ../wfview/resources/wfview.icns
 win32:RC_ICONS = "../wfview/resources/icons/Windows/wfview 512x512.ico"
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
 QMAKE_TARGET_BUNDLE_PREFIX = org.wfview
 MY_ENTITLEMENTS.name = CODE_SIGN_ENTITLEMENTS
 MY_ENTITLEMENTS.value = ../wfview/resources/wfview.entitlements

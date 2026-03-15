@@ -13,7 +13,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.13</string>
+	<string>12.0</string>
 	<key>NOTE</key>
 	<string>Open Source interface for Icom transceivers</string>
 	<key>NSPrincipalClass</key>

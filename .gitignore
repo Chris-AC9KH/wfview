@@ -15,3 +15,13 @@ qcustomplot2.dll
 Makefile
 Makefile.Debug
 Makefile.Release
+
+# build 
+script ignores
+build/
+eigen/
+opus/
+qcustomplot.tar.gz
+qcustomplot/
+r8brain-free-src/
+rtaudio/
