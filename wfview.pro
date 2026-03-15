@@ -110,7 +110,7 @@ win32:RC_ICONS = "resources/icons/Windows/wfview 512x512.ico"
 macx{
     ICON = resources/wfview.icns
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
-    QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+    QMAKE_APPLE_DEVICE_ARCHS = arm64
     MY_ENTITLEMENTS.name = CODE_SIGN_ENTITLEMENTS
     MY_ENTITLEMENTS.value = resources/wfview.entitlements
     QMAKE_MAC_XCODE_SETTINGS += MY_ENTITLEMENTS

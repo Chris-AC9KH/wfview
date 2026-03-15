@@ -4,13 +4,6 @@
 
 name: Linux AppImage Build
   #
-# Required for the GitHub Action bot to publish releases
-permissions:
-  contents: write
-
-on:
-  push:
-    branches: ['**']
 
 env:
   QT_SELECT: qt5

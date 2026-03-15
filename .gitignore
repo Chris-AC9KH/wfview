@@ -1,4 +1,5 @@
 *.pro.user
+.DS_Store
 .vs
 .qmake.stash
 .qtc_clangd
@@ -14,4 +15,20 @@ qcustomplot2.dll
 Makefile
 Makefile.Debug
 Makefile.Release
+<<<<<<< HEAD
+<<<<<<< HEAD
 .DS_Store
+=======
+>>>>>>> 86a5a2f4 (add .DS_Store to .gitignore)
+=======
+
+# build 
+script ignores
+build/
+eigen/
+opus/
+qcustomplot.tar.gz
+qcustomplot/
+r8brain-free-src/
+rtaudio/
+>>>>>>> d33baf46 (Updates for MacOS builds on SDK 26 for Apple silicon only)
