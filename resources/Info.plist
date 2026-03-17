@@ -12,6 +12,8 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+        <key>CFBundleName</key>
+        <string>wfview</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>12.0</string>
 	<key>NOTE</key>
