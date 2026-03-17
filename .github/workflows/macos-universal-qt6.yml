@@ -4,13 +4,6 @@ name: macOS Universal Qt6 Build
 permissions:
   contents: write
 
-on:
-  push:
-    branches: [ master, devel, audioprocessing ]
-  workflow_dispatch:
-  schedule:
-    - cron: '0 6 * * 1'
-
 jobs:
   build-macos:
     runs-on: macos-latest
