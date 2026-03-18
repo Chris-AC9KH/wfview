@@ -2,41 +2,41 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleExecutable</key>
-    <string>wfview</string>
-    <key>CFBundleDevelopmentRegion</key>
-    <string>English</string>
-    <key>Note</key>
-    <string>Open Source interface for Icom transceivers</string>
-    <key>CFBundleIconFile</key>
-    <string>wfview.icns</string>
-    <key>CFBundleIdentifier</key>
-    <string>org.wfview.wfview</string>
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
-    <key>CFBundleName</key>
-    <string>wfview</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>CFBundleShortVersionString</key>
-    <string>2.21</string>
-    <key>CFBundleVersion</key>
-    <string>2.21</string>
-    <key>CSResourcesFileMapped</key>
-    <true/>
-    <key>LSMinimumSystemVersion</key>
-    <string>12.0</string>
-    <key>NSPrincipalClass</key>
-    <string>NSApplication</string>
-    <key>NSHighResolutionCapable</key>
-    <string>True</string>
-    <key>NSSupportsAutomaticGraphicsSwitching</key>
-    <true/>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Microphone required for TX audio</string>
-    <key>NSDownloadsFolderUsageDescription</key>
-    <string>Storing temporary files</string>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>wfview needs local network access to connect to Icom transceivers</string>
+	<key>CFBundleExecutable</key>
+	<string>wfview</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>Note</key>
+	<string>Open Source interface for Icom transceivers</string>
+	<key>CFBundleIconFile</key>
+	<string>wfview.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.wfview.wfview</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>wfview</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.21</string>
+	<key>CFBundleVersion</key>
+	<string>2.21</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone required for TX audio</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Storing temporary files</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>wfview needs local network access to connect to Icom transceivers</string>
 </dict>
 </plist>
