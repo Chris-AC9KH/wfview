@@ -2,10 +2,8 @@ commit 375acead898ee98ca46bc9946d7338fa4630e719
 Merge: e274271 34655f6
 Author: Roeland Jansen <roeland.jansen69@gmail.com>
 Date:   Wed Apr 19 07:36:20 2023 +0200
+Merge branch 'multi-usb'
 
-<<<<<<< HEAD
-    Merge branch 'multi-usb'
-=======
 # CHANGELOG
 
 
@@ -17,7 +15,6 @@ Date:   Wed Apr 19 07:36:20 2023 +0200
 		changed packet handling, WIP
 		rigtype stays in view on status bar
 		added audio input gain slider
->>>>>>> 083ad954 (changelog)
 
 commit e274271820f4562423a6cd89bfaa6033b9a4e609
 Author: Phil Taylor <phil@m0vse.uk>
