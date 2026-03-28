@@ -17,7 +17,7 @@
 #include <QSqlQuery>
 #endif
 
-#include <qcustomplot.h>
+#include "../qcustomplot/qcustomplot.h"
 
 #ifdef USESQL
 #include "database.h"

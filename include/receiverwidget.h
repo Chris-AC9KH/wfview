@@ -1,6 +1,14 @@
 #ifndef RECEIVERWIDGET_H
 #define RECEIVERWIDGET_H
 
+#include "cachingqueue.h"
+#include "cluster.h"
+#include "colorprefs.h"
+#include "freqctrl.h"
+#include "rigidentities.h"
+#include "../qcustomplot/qcustomplot.h"
+#include "wfviewtypes.h"
+
 #include <QWidget>
 #include <QMutex>
 #include <QMutexLocker>
@@ -13,13 +21,6 @@
 #include <QSpacerItem>
 #include <QElapsedTimer>
 #include <QTimer>
-#include <qcustomplot.h>
-#include "freqctrl.h"
-#include "cluster.h"
-#include "wfviewtypes.h"
-#include "colorprefs.h"
-#include "rigidentities.h"
-#include "cachingqueue.h"
 
 enum scopeTypes {
     scopeSpectrum=0,
