@@ -26,3 +26,4 @@ qcustomplot/
 r8brain-free-src/
 rtaudio/
 *.xcodeproj
+.xcode
