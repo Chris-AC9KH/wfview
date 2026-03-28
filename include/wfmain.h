@@ -13,7 +13,6 @@
 #include <QTimer>
 #include <QSettings>
 #include <QShortcut>
-#include <QThread>
 #include <QMetaType>
 #include <QMutex>
 #include <QMutexLocker>
@@ -61,7 +60,7 @@
 #include "receiverwidget.h"
 #include "tciserver.h"
 
-#include <qcustomplot.h>
+#include "../qcustomplot/qcustomplot.h"
 #include <qserialportinfo.h>
 #include "usbcontroller.h"
 #include "controllersetup.h"
@@ -75,12 +74,8 @@
 #include <deque>
 #include <memory>
 
-#include <portaudio.h>
-#ifndef Q_OS_LINUX
-#include "RtAudio.h"
-#else
-#include "rtaudio/RtAudio.h"
-#endif
+#include "../libraries/include/portaudio.h"
+#include "../rtaudio/RtAudio.h"
 
 #ifdef USB_CONTROLLER
     #ifdef Q_OS_WIN
@@ -306,7 +301,7 @@ signals:
     void setClusterTimeout(int timeout);
     void setClusterSkimmerSpots(bool enable);
     void setFrequencyRange(double low, double high);
-    void sendControllerRequest(USBDEVICE* dev, usbFeatureType request, int val=0, QString text="", QImage* img=Q_NULLPTR, QColor* color=Q_NULLPTR);
+    void sendControllerRequest(USBDEVICE* dev, usbFeatureType request, int val=0, QString text="", QImage* img=nullptr, QColor* color=nullptr);
     void tciInit(quint16 port);
 
     // Signals to forward incoming data onto other areas
@@ -487,14 +482,14 @@ private slots:
     void popupScreenMenu(QPoint pos);
 
 private:
-    QMenu* screenMenu = Q_NULLPTR;
+    QMenu* screenMenu = nullptr;
     Ui::wfmain *ui; // Main UI
     QVector<receiverWidget*>receivers;   // Spectrum Scope items.
     void closeEvent(QCloseEvent *event);
     QString logFilename;
     bool debugMode;
     QString version;
-    QSettings *settings=Q_NULLPTR;
+    QSettings *settings=nullptr;
     void loadSettings();
     void saveSettings();
     void connectSettingsWidget();
@@ -517,7 +512,7 @@ private:
     void showButton(QPushButton *btn);
     void hideButton(QPushButton *btn);
 
-    FirstTimeSetup *fts = Q_NULLPTR;
+    FirstTimeSetup *fts = nullptr;
     void openRig();
     void powerRigOff();
     void powerRigOn();
@@ -526,8 +521,8 @@ private:
 
     QList<QShortcut *> shortcuts;
 
-    rigCommander * rig=Q_NULLPTR;
-    QThread* rigThread = Q_NULLPTR;
+    rigCommander * rig=nullptr;
+    QThread* rigThread = nullptr;
     QCPColorMap * colorMap;
     QCPColorMapData * colorMapData;
     QCPColorScale * colorScale;
@@ -587,7 +582,7 @@ private:
 
     cachingQueue* queue;
     // Radio time sync:
-    QTimer *timeSync = Q_NULLPTR;
+    QTimer *timeSync = nullptr;
     bool waitingToSetTimeDate;
     void setRadioTimeDatePrep();
     timekind timesetpoint;
@@ -651,7 +646,7 @@ private:
     int oldFreqDialVal;
 
     QHash<quint16,rigInfo> rigList;
-    rigCapabilities* rigCaps = Q_NULLPTR;
+    rigCapabilities* rigCaps = nullptr;
 
     rigInput currentModSrc[4];
 
@@ -664,31 +659,29 @@ private:
     quint8 usingDataMode = 99; // Set to invalid value initially
 
     // Widgets and Special Windows:
-    calibrationWindow *cal = Q_NULLPTR;
-    repeaterSetup *rpt = Q_NULLPTR;
-    satelliteSetup *sat = Q_NULLPTR;
-    //transceiverAdjustments *trxadj = Q_NULLPTR;
-    cwSender *cw = Q_NULLPTR;
-    controllerSetup* usbWindow = Q_NULLPTR;
-    aboutbox *abtBox = Q_NULLPTR;
-    selectRadio *selRad = Q_NULLPTR;
-    loggingWindow *logWindow = Q_NULLPTR;
-    rigCreator *creator = Q_NULLPTR;
-    TxAudioProcessor* txProc = Q_NULLPTR;
-    AudioProcessingWidget* audioProcWin = Q_NULLPTR;
-    RxAudioProcessor* rxProc = Q_NULLPTR;
-    RxAudioProcessingWidget* rxAudioProcWin = Q_NULLPTR;
+    calibrationWindow *cal = nullptr;
+    repeaterSetup *rpt = nullptr;
+    satelliteSetup *sat = nullptr;
+    //transceiverAdjustments *trxadj = nullptr;
+    cwSender *cw = nullptr;
+    controllerSetup* usbWindow = nullptr;
+    aboutbox *abtBox = nullptr;
+    selectRadio *selRad = nullptr;
+    loggingWindow *logWindow = nullptr;
+    rigCreator *creator = nullptr;
+    TxAudioProcessor* txProc = nullptr;
+    AudioProcessingWidget* audioProcWin = nullptr;
+    RxAudioProcessor* rxProc = nullptr;
+    RxAudioProcessingWidget* rxAudioProcWin = nullptr;
     QString m_noiseStorePath;   // full path to the per-radio .noise profile file
     bandbuttons* bandbtns;
     frequencyinputwidget* finputbtns;
     settingswidget* setupui;
-
-
-    rigServer* server = Q_NULLPTR;
-    QThread* serverThread = Q_NULLPTR;
-    rigCtlD* rigCtl = Q_NULLPTR;
-    tciServer* tci = Q_NULLPTR;
-    QThread* tciThread = Q_NULLPTR;
+    rigServer* server = nullptr;
+    QThread* serverThread = nullptr;
+    rigCtlD* rigCtl = nullptr;
+    tciServer* tci = nullptr;
+    QThread* tciThread = nullptr;
 
     void bandStackBtnClick();
     bool waitingForBandStackRtn;
@@ -727,7 +720,7 @@ private:
 
     quint64 mainElapsed=0;
     quint64 subElapsed=0;
-    colorPrefsType* colorPrefs=Q_NULLPTR;
+    colorPrefsType* colorPrefs=nullptr;
 
     QString currentRegion = "1";
     funcType getInputTypeCommand(inputTypes input);
@@ -735,8 +728,8 @@ private:
     void applyRxAudioProcPrefs(const rxAudioProcessingPrefs& p);
 
 #if defined (USB_CONTROLLER)
-    usbController *usbControllerDev = Q_NULLPTR;
-    QThread *usbControllerThread = Q_NULLPTR;
+    usbController *usbControllerDev = nullptr;
+    QThread *usbControllerThread = nullptr;
     QString typeName;
     QVector<BUTTON> usbButtons;
     QVector<KNOB> usbKnobs;
@@ -750,42 +743,31 @@ private:
         QSocketNotifier* uDevNotifier = nullptr;
     #endif
 #endif
-    memories* memWindow = Q_NULLPTR;
-    dxClusterClient* cluster = Q_NULLPTR;
-    QThread* clusterThread = Q_NULLPTR;
+    memories* memWindow = nullptr;
+    dxClusterClient* cluster = nullptr;
+    QThread* clusterThread = nullptr;
     QMap<QString, spotData*> clusterSpots;
     QTimer clusterTimer;
-    QCPItemText* text=Q_NULLPTR;
+    QCPItemText* text=nullptr;
     QMutex clusterMutex;
     QColor clusterColor;
-    audioDevices* audioDev = Q_NULLPTR;
+    audioDevices* audioDev = nullptr;
     QImage lcdImage;
     connectionStatus_t connStatus = connDisconnected;
     uchar currentReceiver = 0;
     bool isRadioAdmin = true;
 };
 
-Q_DECLARE_METATYPE(audioPacket)
-Q_DECLARE_METATYPE(audioSetup)
-Q_DECLARE_METATYPE(SERVERCONFIG)
-Q_DECLARE_METATYPE(networkStatus)
-Q_DECLARE_METATYPE(networkAudioLevels)
-Q_DECLARE_METATYPE(spotData)
-Q_DECLARE_METATYPE(radio_cap_packet)
-Q_DECLARE_METATYPE(BUTTON)
-Q_DECLARE_METATYPE(QVector<BUTTON>*)
-Q_DECLARE_METATYPE(KNOB)
-Q_DECLARE_METATYPE(QVector<KNOB>*)
-Q_DECLARE_METATYPE(COMMAND)
-Q_DECLARE_METATYPE(QVector<COMMAND>*)
-Q_DECLARE_METATYPE(const COMMAND*)
-Q_DECLARE_METATYPE(USBDEVICE)
-Q_DECLARE_METATYPE(const USBDEVICE*)
-Q_DECLARE_METATYPE(codecType)
-Q_DECLARE_METATYPE(errorType)
-Q_DECLARE_METATYPE(rigTypedef)
+// Q_DECLARE_METATYPE(audioPacket)
+// Q_DECLARE_METATYPE(audioSetup)
+// Q_DECLARE_METATYPE(SERVERCONFIG)
+// Q_DECLARE_METATYPE(networkStatus)
+// Q_DECLARE_METATYPE(networkAudioLevels)
+// Q_DECLARE_METATYPE(spotData)
+// Q_DECLARE_METATYPE(radio_cap_packet)
 
 //void (*wfmain::logthistext)(QString text) = NULL;
 
 #endif // WFMAIN_H
 #endif
+

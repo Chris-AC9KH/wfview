@@ -12,13 +12,8 @@
 
 #include <QFontMetrics>
 
-#include <portaudio.h>
-#ifndef Q_OS_LINUX
-#include "RtAudio.h"
-#else
-#include "rtaudio/RtAudio.h"
-#endif
-
+#include "../libraries/include/portaudio.h"
+#include "../rtaudio/RtAudio.h"
 #include "wfviewtypes.h"
 
 

@@ -1,8 +1,7 @@
-#ifndef usbController_H
-#define usbController_H
+#ifndef USB_CONTROLLER_H
+#define USB_CONTROLLER_H
 
 #include "cachingqueue.h"
-#include <iostream>
 #include <QThread>
 #include <QCoreApplication>
 #include <QTimer>
@@ -33,27 +32,23 @@
 #endif
 
 #if defined(USB_CONTROLLER)
-    #ifndef Q_OS_WIN
-        #include "hidapi/hidapi.h"
-    #else
-        #include "hidapi.h"
+#include "../libraries/include/hidapi/hidapi.h"
+#endif
+
+#ifdef HID_API_VERSION_MAJOR
+    #ifndef HID_API_MAKE_VERSION
+    #define HID_API_MAKE_VERSION(mj, mn, p) (((mj) << 24) | ((mn) << 8) | (p))
+    #endif
+    #ifndef HID_API_VERSION
+        #define HID_API_VERSION HID_API_MAKE_VERSION(HID_API_VERSION_MAJOR, HID_API_VERSION_MINOR, HID_API_VERSION_PATCH)
     #endif
 
-    #ifdef HID_API_VERSION_MAJOR
-        #ifndef HID_API_MAKE_VERSION
-        #define HID_API_MAKE_VERSION(mj, mn, p) (((mj) << 24) | ((mn) << 8) | (p))
-        #endif
-        #ifndef HID_API_VERSION
-            #define HID_API_VERSION HID_API_MAKE_VERSION(HID_API_VERSION_MAJOR, HID_API_VERSION_MINOR, HID_API_VERSION_PATCH)
-        #endif
+    #if defined(__APPLE__) && HID_API_VERSION >= HID_API_MAKE_VERSION(0, 12, 0)
+        #include "../libraries/include/hidapi/hidapi_darwin.h"
+    #endif
 
-        #if defined(__APPLE__) && HID_API_VERSION >= HID_API_MAKE_VERSION(0, 12, 0)
-            #include <hidapi/hidapi_darwin.h>
-        #endif
-
-        #if defined(USING_HIDAPI_LIBUSB) && HID_API_VERSION >= HID_API_MAKE_VERSION(0, 12, 0)
-            #include <hidapi_libusb.h>
-        #endif
+    #if defined(USING_HIDAPI_LIBUSB) && HID_API_VERSION >= HID_API_MAKE_VERSION(0, 12, 0)
+        #include "../libraries/include/hidapi/hidapi.h"
     #endif
 #endif
 
@@ -64,11 +59,15 @@
 // Include these so we have the various enums
 #include "rigidentities.h"
 
-using namespace std;
-
+#ifndef HIDDATALENGTH
 #define HIDDATALENGTH 64
-#define MAX_STR 255
+#endif
 
+#ifndef MAX_STR
+#define MAX_STR 255
+#endif
+
+// Structure defining a USB device type with relevant identifiers and capabilities.
 struct USBTYPE {
     USBTYPE(): model(usbNone), manufacturerId(0), productId(0), usage(0), usagePage(0), buttons(0), cols(0), knobs(0), leds(0), maxPayload(0), iconSize(0) {}
     USBTYPE(usbDeviceType model,quint32 manufacturerId, quint32 productId , quint32 usage, quint32 usagePage, int buttons, int cols, int knobs, int leds,  int maxPayload, int iconSize) :
@@ -87,7 +86,7 @@ struct USBTYPE {
     int iconSize;
 };
 
-
+// Structure representing the value and state of a knob control.
 struct KNOBVALUE {
     int value=0;
     int previous=0;
@@ -96,6 +95,7 @@ struct KNOBVALUE {
     QString name="";
 };
 
+// Structure representing a USB device, including its state, capabilities, and associated UI elements.
 struct USBDEVICE {
     USBDEVICE() : detected(false), remove(false), connected(false), uiCreated(false), disabled(false), speed(2), timeout(30), brightness(2),orientation(0),
         color(Qt::darkGray), lcd(funcNone), sensitivity(1),jogpos(0),shutpos(0),shutMult(0),jogCounter(0),buttons(0),knobs(0),lastusbController(QTime::currentTime()),
@@ -118,7 +118,7 @@ struct USBDEVICE {
     QColor color;
     funcs lcd;
 #if defined(USB_CONTROLLER)
-    hid_device* handle = NULL;
+    hid_device* handle = nullptr;
 #endif
     QString product ;
     QString manufacturer;
@@ -141,13 +141,16 @@ struct USBDEVICE {
     QLabel *message;
     int pages;
     int currentPage;
-    QGraphicsScene* scene = Q_NULLPTR;
-    QSpinBox* pageSpin = Q_NULLPTR;
+    QGraphicsScene* scene = nullptr;
+    QSpinBox* pageSpin = nullptr;
     QImage image;
     quint8 ledStatus;
 };
 
+// Enum for command value types.
 enum cmdValueType {cmdValueInc, cmdValueDec, cmdValueAbs };
+
+// Structure representing a command with associated parameters and metadata.
 struct COMMAND {
     COMMAND() {}
     COMMAND(int index, QString text, usbCommandType cmdType, int command, int value) :
@@ -170,54 +173,55 @@ struct COMMAND {
     cmdValueType cmdValue=cmdValueAbs;
 };
 
+// Structure representing a button control on a USB device, including its commands and graphical properties.
 struct BUTTON {
     BUTTON() {}
 
-    BUTTON(usbDeviceType dev, int num, QRect pos, const QColor textColour, COMMAND* on, COMMAND* off, bool graphics=false, int led=0) :
+    BUTTON(usbDeviceType dev, int num, QRect pos, const QColor textColour, const COMMAND* on, const COMMAND* off, bool graphics=false, int led=0) :
         dev(dev), num(num), name(""), pos(pos), textColour(textColour), onCommand(on), offCommand(off), on(onCommand->text), off(offCommand->text), graphics(graphics), led(led){}
-    BUTTON(usbDeviceType dev, QString name, QRect pos, const QColor textColour, COMMAND* on, COMMAND* off) :
+    BUTTON(usbDeviceType dev, QString name, QRect pos, const QColor textColour, const COMMAND* on, const COMMAND* off) :
         dev(dev), num(-1), name(name), pos(pos), textColour(textColour), onCommand(on), offCommand(off), on(onCommand->text), off(offCommand->text) {}
 
     usbDeviceType dev;
-    USBDEVICE* parent = Q_NULLPTR;
+    USBDEVICE* parent = nullptr;
     int page=1;
     int num;
     QString name;
     QRect pos;
     QColor textColour;
-    const COMMAND* onCommand = Q_NULLPTR;
-    const COMMAND* offCommand = Q_NULLPTR;
-    QGraphicsRectItem* bgRect = Q_NULLPTR;
-    QGraphicsTextItem* text = Q_NULLPTR;
+    const COMMAND* onCommand = nullptr;
+    const COMMAND* offCommand = nullptr;
+    QGraphicsRectItem* bgRect = nullptr;
+    QGraphicsTextItem* text = nullptr;
     QString on;
     QString off;
     QString path;
     QColor backgroundOn = Qt::lightGray;
     QColor backgroundOff = Qt::blue;
     QString iconName = "";
-    QImage* icon = Q_NULLPTR;
+    QImage* icon = nullptr;
     bool toggle = false;
     bool isOn = false;
     bool graphics = false;
     int led = 0;
 };
 
-
+// Structure representing a knob control on a USB device, including its command and graphical properties.
 struct KNOB {
     KNOB() {}
 
-    KNOB(usbDeviceType dev, int num, QRect pos, const QColor textColour, COMMAND* command) :
+    KNOB(usbDeviceType dev, int num, QRect pos, const QColor textColour, const COMMAND* command) :
         dev(dev), num(num), name(""), pos(pos), textColour(textColour), command(command), cmd(command->text) {}
 
     usbDeviceType dev;
-    USBDEVICE* parent = Q_NULLPTR;
+    USBDEVICE* parent = nullptr;
     int page=1;
     int num;
     QString name;
     QRect pos;
     QColor textColour;
-    const COMMAND* command = Q_NULLPTR;
-    QGraphicsTextItem* text = Q_NULLPTR;
+    const COMMAND* command = nullptr;
+    QGraphicsTextItem* text = nullptr;
     QString cmd;
     QString path;
     int value=0;
@@ -245,7 +249,7 @@ public slots:
     void programPages(USBDEVICE* dev, int pages);
     void programDisable(USBDEVICE* dev, bool disabled);
 
-    void sendRequest(USBDEVICE *dev, usbFeatureType feature, int val=0, QString text="", QImage* img=Q_NULLPTR, QColor* color=Q_NULLPTR);
+    void sendRequest(USBDEVICE *dev, usbFeatureType feature, int val=0, QString text="", QImage* img=nullptr, QColor* color=nullptr);
     void sendToLCD(QImage *img);
     void backupController(USBDEVICE* dev, QString file);
     void restoreController(USBDEVICE* dev, QString file);
@@ -294,19 +298,19 @@ private:
     usbDevMap* devices;
 
     cachingQueue *queue;
-    rigCapabilities* rigCaps = Q_NULLPTR;
+    rigCapabilities* rigCaps = nullptr;
 
 #if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
-    QGamepad* gamepad=Q_NULLPTR;
+    QGamepad* gamepad=nullptr;
 #endif
     void buttonState(QString but, bool val);
     void buttonState(QString but, double val);
     QColor currentColour;
 
-    QMutex* mutex=Q_NULLPTR;
+    QMutex* mutex=nullptr;
     COMMAND sendCommand;
 
-    QTimer* dataTimer = Q_NULLPTR;
+    QTimer* dataTimer = nullptr;
 protected:
 };
 
@@ -321,4 +325,4 @@ class usbControllerDev : public QObject
 
 #endif
 
-#endif
+#endif // USB_CONTROLLER_H

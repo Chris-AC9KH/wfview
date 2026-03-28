@@ -22,8 +22,8 @@
 /* Opus and Eigen */
 #ifndef Q_OS_LINUX
 #include "opus.h"
-#include <Eigen/Eigen>
-#include <Eigen/Dense>
+#include "../eigen/Eigen/Eigen"
+#include "../eigen/Eigen/Dense"
 #else
 #include "opus/opus.h"
 #include <eigen3/Eigen/Eigen>

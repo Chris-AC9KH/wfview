@@ -2,7 +2,7 @@
 #define AUDIOHANDLERPAOUTPUT_H
 
 #include "audiohandlerbase.h"
-#include <portaudio.h>
+#include "../libraries/include/portaudio.h"
 #include <memory>
 #include "bytering.h"
 

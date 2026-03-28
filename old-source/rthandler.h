@@ -7,7 +7,7 @@
 #include <QMutex>
 
 #ifndef Q_OS_LINUX
-#include "RtAudio.h"
+#include "rtaudio/RtAudio.h"
 #else
 #include "rtaudio/RtAudio.h"
 #endif

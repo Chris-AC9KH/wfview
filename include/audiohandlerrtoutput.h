@@ -2,15 +2,10 @@
 #define AUDIOHANDLERRTOUTPUT_H
 
 #include "audiohandlerbase.h"
-
-#ifndef Q_OS_LINUX
-#include "RtAudio.h"
-#else
-#include "rtaudio/RtAudio.h"
-#endif
-#include <memory>
 #include "bytering.h"
+#include "../rtaudio/RtAudio.h"
 
+#include <memory>
 
 class audioHandlerRtOutput : public audioHandlerBase {
     Q_OBJECT

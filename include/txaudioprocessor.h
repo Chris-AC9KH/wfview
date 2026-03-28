@@ -12,7 +12,7 @@
 #endif
 
 #ifndef Q_OS_LINUX
-#  include <Eigen/Dense>
+#  include "../eigen/Eigen/Dense"
 #else
 #  include <eigen3/Eigen/Dense>
 #endif
