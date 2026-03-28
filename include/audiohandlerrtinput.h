@@ -2,12 +2,7 @@
 #define AUDIOHANDLERRTINPUT_H
 
 #include "audiohandlerbase.h"
-
-#ifndef Q_OS_LINUX
-#include "RtAudio.h"
-#else
-#include "rtaudio/RtAudio.h"
-#endif
+#include "../rtaudio/RtAudio.h"
 
 #include <memory>
 #include "bytering.h"

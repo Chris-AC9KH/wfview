@@ -1,14 +1,13 @@
 #ifndef SELECTRADIO_H
 #define SELECTRADIO_H
 
+#include "packettypes.h"
+#include "../qcustomplot/qcustomplot.h"
+
 #include <QDialog>
 #include <QList>
 #include <QtEndian>
 #include <QHostInfo>
-
-#include <qcustomplot.h>
-
-#include "packettypes.h"
 
 namespace Ui {
     class selectRadio;
