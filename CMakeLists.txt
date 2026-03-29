@@ -54,8 +54,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-qt_standard_project_setup()
-
 if (LINUX)
     find_package(Libudev)
 endif()
@@ -64,6 +62,8 @@ find_package(Qt6    6.8 REQUIRED COMPONENTS Gui Multimedia Network PrintSupport 
 find_package(PortAudio REQUIRED)
 find_package(Opus REQUIRED)
 find_package(hidapi REQUIRED)
+
+qt_standard_project_setup()
 
 #------------------------------------------------------------------------------#
 # Create a target that's the same as our project name; that'll be our
