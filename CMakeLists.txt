@@ -27,7 +27,7 @@ endif()
 #------------------------------------------------------------------------------#
 project(
     wfview
-    VERSION   2.21
+    VERSION 2.21
     LANGUAGES C CXX
 )
 
@@ -276,7 +276,7 @@ target_compile_definitions(wfview PRIVATE
     QCUSTOMPLOT_USE_LIBRARY
     QT_DEPRECATED_WARNINGS
     RANDOM_PREFIX=wf
-    WFVIEW_VERSION=\"2.21\"
+    WFVIEW_VERSION=\"${PROJECT_VERSION}\"
 )
 
 if(USB_CONTROLLER)
