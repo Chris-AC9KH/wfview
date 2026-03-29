@@ -54,8 +54,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-qt_standard_project_setup()
-
 if (LINUX)
     find_package(Libudev)
 endif()
@@ -64,6 +62,9 @@ find_package(Qt6    6.8 REQUIRED COMPONENTS Gui Multimedia Network PrintSupport 
 find_package(PortAudio REQUIRED)
 find_package(Opus REQUIRED)
 find_package(hidapi REQUIRED)
+
+# does not work for whatever reason on Intel
+# qt_standard_project_setup()
 
 #------------------------------------------------------------------------------#
 # Create a target that's the same as our project name; that'll be our
@@ -82,8 +83,9 @@ if (APPLE)
 
 set_target_properties(
     ${TARGET} PROPERTIES
-    MACOSX_BUNDLE_INFO_PLIST    "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist"
-    MACOSX_BUNDLE_ICON_FILE     "${CMAKE_CURRENT_SOURCE_DIR}/resources/wfview.icns"
+    MACOSX_BUNDLE_INFO_PLIST        "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist"
+    MACOSX_BUNDLE_ICON_FILE         "${CMAKE_CURRENT_SOURCE_DIR}/resources/wfview.icns"
+    MACOSX_BUNDLE_GUI_IDENTIFIER    "org.wfview.wfview"
 )
 endif()
 
