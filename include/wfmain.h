@@ -558,6 +558,12 @@ private:
     QLabel* rigName;
     QLedLabel* pttLed;
     QLedLabel* connectedLed;
+    QLabel *rfLabel = nullptr;
+    QLabel *afLabel = nullptr;
+    QLabel *sqLabel = nullptr;
+    QLabel *micLabel = nullptr;
+    QLabel *txLabel = nullptr;
+    QLabel *monLabel = nullptr;
 
     double passbandWidth = 0.0;
 

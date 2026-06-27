@@ -39,8 +39,7 @@ struct queueItem {
     uchar receiver;
     bool recurring;
     qint64 id = QDateTime::currentMSecsSinceEpoch();
-
-    bool operator==(const queueItem& lhs)
+    bool operator==(const queueItem& lhs) const
     {
         return (lhs.command == command &&
                 lhs.receiver == receiver &&

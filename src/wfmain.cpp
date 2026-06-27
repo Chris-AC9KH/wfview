@@ -925,6 +925,24 @@ void wfmain::setupMainUI()
     // Keep this code when the rest is removed from this function:
     qDebug(logSystem()) << "Running with debugging options enabled.";
 
+    // Persistent slider value labels in status bar
+    rfLabel = new QLabel("RF Gain:--", this);
+    afLabel = new QLabel("Volume:--", this);
+    sqLabel = new QLabel("Squelch:--", this);
+    micLabel = new QLabel("Mod:--", this);
+    txLabel = new QLabel("Tx Power:--", this);
+    monLabel = new QLabel("Monitor:--", this);
+
+    for (QLabel* lbl : {rfLabel, afLabel, sqLabel, micLabel, txLabel, monLabel}) {
+        lbl->setMinimumWidth(110);
+        lbl->setAlignment(Qt::AlignCenter);
+        ui->statusBar->addPermanentWidget(lbl);
+    }
+    rfLabel->setText(QString("RF Gain:%1%").arg(100*ui->rfGainSlider->value()/ui->rfGainSlider->maximum()));
+    txLabel->setText(QString("Tx Power:%1%").arg(100*ui->txPowerSlider->value()/ui->txPowerSlider->maximum()));
+    afLabel->setText(QString("Volume:%1%").arg(100*ui->afGainSlider->value()/ui->afGainSlider->maximum()));
+    sqLabel->setText(QString("Squelch:%1%").arg(100*ui->sqlSlider->value()/ui->sqlSlider->maximum()));
+    sqLabel->setText(QString("Monitor:%1%").arg(100*ui->monitorSlider->value()/ui->monitorSlider->maximum()));
 
     rigStatus = new QLabel(this);
     ui->statusBar->addPermanentWidget(rigStatus);
@@ -953,29 +971,29 @@ void wfmain::setupMainUI()
     ui->tuneLockChk->setChecked(false);
     freqLock = false;
 
-    connect(
-                ui->txPowerSlider, &QSlider::valueChanged, this,
-                [=](const int &newValue) {
-                    if (ui->txPowerSlider->maximum())
-                        statusFromSliderPercent("Tx Power", 255*newValue/ui->txPowerSlider->maximum());
-                }
-    );
+    connect(ui->txPowerSlider, &QSlider::valueChanged, this,
+        [=](const int &newValue) {
+            if (ui->txPowerSlider->maximum()) {
+                int pct = 100*newValue/ui->txPowerSlider->maximum();
+                txLabel->setText(QString("Tx Power:%1%").arg(pct));
+            }
+        });
 
-    connect(
-                ui->rfGainSlider, &QSlider::valueChanged, this,
-                [=](const int &newValue) {
-                    if (ui->rfGainSlider->maximum())
-                        statusFromSliderPercent("RF Gain", 255*newValue/ui->rfGainSlider->maximum());
-                }
-    );
+    connect(ui->rfGainSlider, &QSlider::valueChanged, this,
+        [=](const int &newValue) {
+            if (ui->rfGainSlider->maximum()) {
+                int pct = 100*newValue/ui->rfGainSlider->maximum();
+                rfLabel->setText(QString("RF Gain:%1%").arg(pct));
+            }
+        });
 
-    connect(
-                ui->afGainSlider, &QSlider::valueChanged, this,
-                [=](const int &newValue) {
-                    if (ui->afGainSlider->maximum())
-                        statusFromSliderPercent("AF Gain", 255*newValue/ui->afGainSlider->maximum());
-                }
-    );
+    connect(ui->afGainSlider, &QSlider::valueChanged, this,
+        [=](const int &newValue) {
+            if (ui->afGainSlider->maximum()) {
+                int pct = 100*newValue/ui->afGainSlider->maximum();
+                afLabel->setText(QString("Volume:%1%").arg(pct));
+            }
+        });
 
     connect(
                 ui->micGainSlider, &QSlider::valueChanged, this,
@@ -985,21 +1003,21 @@ void wfmain::setupMainUI()
                 }
     );
 
-    connect(
-                ui->sqlSlider, &QSlider::valueChanged, this,
-                [=](const int &newValue) {
-                    if (ui->sqlSlider->maximum())
-                        statusFromSliderPercent("Squelch", 255*newValue/ui->sqlSlider->maximum());
-                }
-    );
+    connect(ui->sqlSlider, &QSlider::valueChanged, this,
+        [=](const int &newValue) {
+            if (ui->sqlSlider->maximum()) {
+                int pct = 100*newValue/ui->sqlSlider->maximum();
+                sqLabel->setText(QString("Squelch:%1%").arg(pct));
+            }
+        });
 
-    connect(
-                ui->monitorSlider, &QSlider::valueChanged, this,
-                [=](const int &newValue) {
-                    if (ui->monitorSlider->maximum())
-                        statusFromSliderPercent("Monitor", 255*newValue/ui->monitorSlider->maximum());
-                }
-    );
+    connect(ui->monitorSlider, &QSlider::valueChanged, this,
+        [=](const int &newValue) {
+            if (ui->monitorSlider->maximum()) {
+                int pct = 100*newValue/ui->monitorSlider->maximum();
+                monLabel->setText(QString("Monitor:%1%").arg(pct));
+            }
+        });
 
 }
 
@@ -4852,6 +4870,9 @@ void wfmain::processModLevel(inputTypes source, quint8 level)
         {
             prefs.inputSource[data].level = level;
             changeSliderQuietly(ui->micGainSlider, level);
+            int micPct = (ui->micGainSlider->maximum() > 0) ?
+                100 * level / ui->micGainSlider->maximum() : 0;
+            micLabel->setText(QString("%1:%2%").arg(prefs.inputSource[data].name).arg(micPct));
         }
     }
 }
@@ -4948,7 +4969,15 @@ void wfmain::receiveMeter(meter_t inMeter, double level)
 
 void wfmain::receiveMonitor(bool en)
 {
-    ui->monitorLabel->setActive(en);
+    // Use the current palette's text color so the label respects the system/theme
+    const QColor textColor = ui->monitorLabel->palette().color(QPalette::WindowText);
+    const QString cssColor = textColor.name(QColor::HexRgb);
+
+    if (en) {
+        ui->monitorLabel->setText(QString("<a href=\"#\" style=\"color:#00aa00; text-decoration:none;\">Mon</a>"));
+    } else {
+        ui->monitorLabel->setText(QString("<a href=\"#\" style=\"color:%1; text-decoration:none;\">Mon</a>").arg(cssColor));
+    }
 }
 
 
@@ -4989,6 +5018,11 @@ void wfmain::changeModLabel(rigInput input, bool updateLevel)
     {
         changeSliderQuietly(ui->micGainSlider, input.level);
     }
+
+    // Update status bar mic label with current source name and level
+    int micPct = (ui->micGainSlider->maximum() > 0) ?
+        100 * ui->micGainSlider->value() / ui->micGainSlider->maximum() : 0;
+    micLabel->setText(QString("%1:%2%").arg(input.name).arg(micPct));
 }
 
 void wfmain::processChangingCurrentModLevel(quint8 level)
@@ -6155,23 +6189,39 @@ void wfmain::receiveValue(cacheItem val){
     case funcNotchFilter:
         break;
     case funcAfGain:
-        if (val.receiver == currentReceiver)
+        if (val.receiver == currentReceiver) {
             changeSliderQuietly(ui->afGainSlider, val.value.value<uchar>());
+            int pct = 100*ui->afGainSlider->value()/ui->afGainSlider->maximum();
+            afLabel->setText(QString("Volume:%1%").arg(pct));
+        }
         break;
     case funcMonitorGain:
-        changeSliderQuietly(ui->monitorSlider, val.value.value<uchar>());
+        if (val.receiver == currentReceiver) {
+            changeSliderQuietly(ui->monitorSlider,val.value.value<uchar>());
+            int pct = 100*ui->monitorSlider->value()/ui->monitorSlider->maximum();
+            monLabel->setText(QString("Monitor:%1%").arg(pct));
+            }
         break;
     case funcRfGain:
-        if (val.receiver == currentReceiver)
+        if (val.receiver == currentReceiver) {
             changeSliderQuietly(ui->rfGainSlider, val.value.value<uchar>());
+            int pct = 100*ui->rfGainSlider->value()/ui->rfGainSlider->maximum();
+            rfLabel->setText(QString("RF Gain:%1%").arg(pct));
+        }
         break;
     case funcSquelch:
         if (val.receiver == currentReceiver) {
             changeSliderQuietly(ui->sqlSlider, val.value.value<uchar>());
+            int pct = 100*ui->sqlSlider->value()/ui->sqlSlider->maximum();
+            sqLabel->setText(QString("Squelch:%1%").arg(pct));
         }
         break;
     case funcRFPower:
-        changeSliderQuietly(ui->txPowerSlider, val.value.value<uchar>());
+        if (val.receiver == currentReceiver) {
+            changeSliderQuietly(ui->txPowerSlider,val.value.value<uchar>());
+            int pct =100*ui->txPowerSlider->value()/ui->txPowerSlider->maximum();
+            txLabel->setText(QString("Tx Power:%1%").arg(pct));
+        }
         break;
     case funcCompressorLevel:
     case funcNBLevel:
