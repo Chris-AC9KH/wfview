@@ -32,6 +32,8 @@
 	<string>True</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone required for TX audio</string>
 	<key>NSDownloadsFolderUsageDescription</key>
