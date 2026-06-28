@@ -15,9 +15,9 @@
 #include <algorithm>
 
 // speexdspmini public API
-#include "speex_preprocess.h"   // found via -Isrc/audio/speexdspmini/include
+#include "speexdspmini/include/speex_preprocess.h"   // found via -Isrc/audio/speexdspmini/include
 // Internal filterbank header for the preset table
-#include "filterbank.h"         // found via -Isrc/audio/speexdspmini/src
+#include "audio/speexdspmini/src/filterbank.h"         // found via -Isrc/audio/speexdspmini/src
 
 class SpeexNrProcessor
 {

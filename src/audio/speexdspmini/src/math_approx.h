@@ -39,7 +39,7 @@
    Include it before arch.h so it is available even when OUTSIDE_SPEEX
    is not defined (e.g. when compiled as part of a host project that
    uses a separate resampler with its own speex-type macros). */
-#include "speexdsp_config_types.h"
+#include "../include/speexdsp_config_types.h"
 
 #include "arch.h"
 

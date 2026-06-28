@@ -27,7 +27,7 @@ endif()
 #------------------------------------------------------------------------------#
 project(
     wfview
-    VERSION 2.21
+    VERSION 2.24
     LANGUAGES C CXX
 )
 
@@ -104,13 +104,14 @@ target_sources (${TARGET} PRIVATE
     include/audiohandlerrtoutput.h
     include/audiohandlertciinput.h
     include/audiohandlertcioutput.h
-    include/audioprocessingwidget.h
     include/audiotaper.h
     include/bandbuttons.h
     include/bytering.h
     include/cachingqueue.h
     include/calibrationwindow.h
+    include/clickablelabel.h
     include/cluster.h
+    include/collapsiblesection.h
     include/colorprefs.h
     include/commhandler.h
     include/controllersetup.h
@@ -151,6 +152,8 @@ target_sources (${TARGET} PRIVATE
     include/rigserver.h
     include/rigstate.h
     include/rtpaudio.h
+    include/rxaudioprocessor.h
+    include/rxaudioprocessingwidget.h
     include/satellitesetup.h
     include/scrolltest.h
     include/selectradio.h
@@ -161,6 +164,7 @@ target_sources (${TARGET} PRIVATE
     include/tciserver.h
     include/tcpserver.h
     include/txaudioprocessor.h
+    include/txaudioprocessingwidget.h
     include/usbcontroller.h
     include/wfmain.h
     include/wfviewtypes.h
@@ -174,7 +178,9 @@ target_sources (${TARGET} PRIVATE
     qcustomplot/qcustomplot.cpp
     src/aboutbox.cpp src/aboutbox.ui
     src/audio/adpcm/adpcm-dns.c
-    src/audio/adpcm/adpcm-lib.c src/audio/adpcm/adpcm-lib.h
+    src/audio/adpcm/adpcm-lib.c
+    src/audio/adpcm/adpcm-lib.h
+    src/audio/anrnrprocessor.h
     src/audio/audioconverter.cpp
     src/audio/audiodevices.cpp
     src/audio/audiohandlerbase.cpp
@@ -188,8 +194,12 @@ target_sources (${TARGET} PRIVATE
     src/audio/audiohandlertcioutput.cpp
     src/audio/plugins/dyson_compress.cpp
     src/audio/plugins/dysoncompress.h
-    src/audio/plugins/mbeq.cpp src/audio/plugins/mbeq.h
-    src/audio/plugins/noisegate.cpp src/audio/plugins/noisegate.h
+    src/audio/plugins/mbeq.cpp
+    src/audio/plugins/mbeq.h
+    src/audio/plugins/noisegate.cpp
+    src/audio/plugins/noisegate.h
+    src/audio/plugins/triple_para.cpp
+    src/audio/plugins/triple_para.h
     src/audio/pocketfft/pocketfft.c
     src/audio/resampler/arch.h
     src/audio/resampler/resample.c
@@ -197,12 +207,24 @@ target_sources (${TARGET} PRIVATE
     src/audio/resampler/resample_sse.h
     src/audio/resampler/speex_resampler.h
     src/audio/spectrumwidget.cpp
+    src/audio/rxaudioprocessor.cpp
     src/audio/txaudioprocessor.cpp
-    src/audioprocessingwidget.cpp
+    src/audio/speexdspmini/src/preprocess.c
+    src/audio/speexdspmini/src/fftwrap.c
+    src/audio/speexdspmini/src/filterbank.c
+    src/audio/speexdspmini/src/kiss_fft.c
+    src/audio/speexdspmini/src/kiss_fftr.c
+    src/audio/anr/NoiseReduction.cpp
+    src/audio/anr/loguru.cpp
+    src/audio/anr/InputTrack.cpp
+    src/audio/anr/OutputTrack.cpp
+    src/audio/anr/RealFFTf.cpp
     src/bandbuttons.cpp src/bandbuttons.ui
     src/cachingqueue.cpp
     src/calibrationwindow.cpp src/calibrationwindow.ui
+    src/clickablelabel.cpp
     src/cluster.cpp
+    src/collapsiblesection.cpp
     src/commhandler.cpp
     src/controllersetup.cpp src/controllersetup.ui
     src/cwsender.cpp src/cwsender.ui
@@ -245,6 +267,7 @@ target_sources (${TARGET} PRIVATE
     src/rigidentities.cpp
     src/rigserver.cpp
     src/rtpaudio.cpp
+    src/rxaudioprocessingwidget.cpp
     src/satellitesetup.cpp src/satellitesetup.ui
     src/scrolltest.cpp
     src/selectradio.cpp src/selectradio.ui
@@ -253,6 +276,7 @@ target_sources (${TARGET} PRIVATE
     src/tablewidget.cpp
     src/tciserver.cpp
     src/tcpserver.cpp
+    src/txaudioprocessingwidget.cpp
     src/usbcontroller.cpp
     src/wfmain.cpp src/wfmain.ui
 )
@@ -264,10 +288,16 @@ target_include_directories(wfview PRIVATE
     src/audio/plugins
     src/audio/pocketfft
     src/audio/resampler
+    src/audio/speexdspmini/src
+    src/audio/loguru
+    src/audio/adpcm
     qcustomplot
 )
 
-target_compile_definitions(wfview PRIVATE
+target_compile_definitions(${TARGET} PRIVATE
+    FLOATING_POINT
+    USE_KISS_FFT
+    EXPORT=
     BUILD_WFVIEW
     EIGEN_DONT_VECTORIZE
     EIGEN_MPL2_ONLY

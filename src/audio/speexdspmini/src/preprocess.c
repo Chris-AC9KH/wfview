@@ -58,7 +58,7 @@
 */
 
 #include <math.h>
-#include "speex_preprocess.h"
+#include "../include/speex_preprocess.h"
 #include "arch.h"
 #include "fftwrap.h"
 #include "filterbank.h"

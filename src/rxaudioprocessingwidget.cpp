@@ -13,7 +13,7 @@
 #include "rxaudioprocessingwidget.h"
 #include "collapsiblesection.h"
 #include "logcategories.h"
-#include "speexnrprocessor.h"   // SpeexNrProcessor::presetCount() / bandsForPreset()
+#include "audio/speexnrprocessor.h"   // SpeexNrProcessor::presetCount() / bandsForPreset()
 #include <cmath>
 #include <QScrollArea>
 #include <QSizePolicy>
