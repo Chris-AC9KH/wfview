@@ -35,9 +35,19 @@ aboutbox::aboutbox(QWidget *parent) :
 
     QString docs = QString("<br/><br/>Be sure to check the <a href=\"https://wfview.org/wfview-user-manual/\"  style=\"color: cyan;\">User Manual</a> and <a href=\"https://forum.wfview.org/\"  style=\"color: cyan;\">the Forum</a> if you have any questions.");
     QString support = QString("<br/><br/>For support, please visit <a href=\"https://forum.wfview.org/\">the official wfview support forum</a>.");
-    QString gitcodelink = QString("<a href=\"https://gitlab.com/eliggett/wfview/-/tree/%1\"  style=\"color: cyan;\">").arg(GITSHORT);
+    QString gitcodelink = QString("<a href=\"https://github.com/Chris-AC9KH/wfview/commit/%1\"  style=\"color: blue;\">").arg(GITSHORT);
 
-    QString buildInfo = QString("<br/><br/>Build " + gitcodelink + QString(GITSHORT) + "</a> on " + QString(__DATE__) + " at " + __TIME__ + " by " + UNAME + "@" + HOST);
+    QString buildInfo = QString(
+        "<br/><br/>Build %1%2</a> on %3 at %4 by %5@%6"
+        "<br/>This copy of wfview modified by Chris Olson AC9KH for MacOS"
+    ).arg(
+        gitcodelink,
+        QString(GITSHORT),
+        QString(__DATE__),
+        QString(__TIME__),
+        UNAME,
+        HOST
+    );
     QString end = QString("</body></html>");
 
     // Short credit strings:
@@ -158,6 +168,7 @@ aboutbox::aboutbox(QWidget *parent) :
 
     aboutText.append(end);
     ui->midTextBox->setText(aboutText);
+    ui->bottomText->setOpenExternalLinks(true);
     ui->bottomText->setText(buildInfo);
     ui->midTextBox->setFocus();
 }
