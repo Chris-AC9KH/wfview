@@ -30,24 +30,12 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
     // Accessibility: these VFO/scope buttons were NoFocus, making them
     // unreachable by keyboard/VoiceOver. None of them transmit, so they are
     // made Tab-focusable (StrongFocus) below.
-    vfoSelectButton=new QPushButton(tr("VFO A"),this);
-    vfoSelectButton->setHidden(true);
-    vfoSelectButton->setCheckable(true);
-    vfoSelectButton->setFocusPolicy(Qt::StrongFocus);
-    connect(vfoSelectButton, &QPushButton::clicked, this, [=](bool en) {
-        vfoCommandType t = queue->getVfoCommand(vfoA,receiver,false);
-        queue->add(priorityImmediate,queueItem(funcSelectVFO,QVariant::fromValue<vfo_t>(vfo_t(en)),false,t.receiver));
-        queue->add(priorityHighest,t.freqFunc,false,t.receiver);
-        queue->add(priorityHighest,t.modeFunc,false,t.receiver);
-        t = queue->getVfoCommand(vfoB,receiver,false);
-        queue->add(priorityHighest,t.freqFunc,false,t.receiver);
-        queue->add(priorityHighest,t.modeFunc,false,t.receiver);
-        if (en)
-            vfoSelectButton->setText(tr("VFO B"));
-        else
-            vfoSelectButton->setText(tr("VFO A"));
-        selectedVFO = uchar(en);
-    });
+    activeVfoLabel = new QLabel(tr("<- Active Frequency"), this);
+    activeVfoLabel->setHidden(true);
+    activeVfoLabel->setAlignment(Qt::AlignCenter);
+    activeVfoLabel->setFocusPolicy(Qt::NoFocus);
+    activeVfoLabel->setAccessibleName(tr("Active VFO"));
+    activeVfoLabel->setAccessibleDescription(tr("Displays the currently active VFO"));
 
     vfoSwapButton=new QPushButton(tr("A<>B"),this);
     vfoSwapButton->setHidden(true);
@@ -113,8 +101,8 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
             displayLayout->addWidget(fr);
             // Add the VFO buttons here.
             if (numVFO > 1) {
-                vfoSelectButton->setHidden(false);
-                displayLayout->addWidget(vfoSelectButton);
+                activeVfoLabel->setHidden(false);
+                displayLayout->addWidget(activeVfoLabel);
 
                 displayLSpacer = new QSpacerItem(0,0,QSizePolicy::Expanding,QSizePolicy::Fixed);
                 displayLayout->addSpacerItem(displayLSpacer);
@@ -903,8 +891,6 @@ void receiverWidget::colorPreset(colorPrefsType *cp)
     splitButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
                                    .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
     satelliteButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
-                                   .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
-    vfoSelectButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
                                    .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
     vfoMemoryButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
                                    .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));

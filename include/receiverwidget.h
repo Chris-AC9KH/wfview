@@ -201,7 +201,7 @@ private:
     QLinearGradient underlayGradient;
     QList <freqCtrl*> freqDisplay;
     QSpacerItem* displayLSpacer;
-    QPushButton* vfoSelectButton;
+    QLabel* activeVfoLabel;  // changed from QPushButton* to QLabel*
     QSpacerItem* displayCSpacer;
     QPushButton* vfoSwapButton;
     QPushButton* vfoEqualsButton;
