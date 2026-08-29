@@ -1210,10 +1210,18 @@ void wfmain::configureVFOs()
 
         if (i == 0) {
             // Move the frequency/VFO row (Active Frequency, A<>B, A=B, V/M, SPLIT, etc.)
-            // out from above the scope and place it at the top of mainGroup instead.
             if (!mainFreqRowLayout) {
                 mainFreqRowLayout = new QHBoxLayout();
                 ui->verticalLayout_2->insertLayout(0, mainFreqRowLayout);
+            } else {
+                // Purge any old duplicate widgets from previous layout cycles
+                QLayoutItem* oldItem;
+                while ((oldItem = mainFreqRowLayout->takeAt(0)) != Q_NULLPTR) {
+                    if (oldItem->widget()) {
+                        oldItem->widget()->deleteLater(); // Safely deletes the old orphaned widget
+                    }
+                    delete oldItem;
+                }
             }
             receiver->moveDisplayRowTo(mainFreqRowLayout, 0);
         }
@@ -1856,9 +1864,9 @@ void wfmain::setDefPrefs()
 {
     defPrefs.hasRunSetup = false;
     defPrefs.useFullScreen = false;
-    defPrefs.useSystemTheme = false;
+    defPrefs.useSystemTheme = true;
     defPrefs.drawPeaks = true;
-    defPrefs.currentColorPresetNumber = 0;
+    defPrefs.currentColorPresetNumber = 2;
     defPrefs.underlayMode = underlayNone;
     defPrefs.underlayBufferSize = 64;
     defPrefs.wfEnable = 2;
@@ -4218,6 +4226,58 @@ void wfmain::setDefaultColors(int presetNumber)
         }
 
         case 2:
+        {
+            // MacTheme Custom Colors
+            p->presetName->clear();
+            p->presetName->append("MacTheme");
+
+            // Plot & Spectrum Axis
+            p->gridColor                  = QColor(0xbc, 0xbc, 0xbc, 0x80); // #80bcbcbc
+            p->axisColor                  = QColor(0x00, 0x00, 0x00, 0xff); // #ff000000
+            p->textColor                  = QColor(0xf6, 0xf6, 0xf6, 0xff); // #fff6f6f6
+            p->plotBackground             = QColor(0x1e, 0x39, 0x5e, 0xff); // #ff1e395e
+            p->spectrumLine               = QColor(0x00, 0x00, 0x00, 0xff); // #ff000000
+            p->spectrumFill               = QColor(0x00, 0x00, 0x00, 0x00); // #00000000
+
+            // Gradient Configuration (Spectrum)
+            p->useSpectrumFillGradient    = true;                           // Spectrum Gradient Active
+            p->spectrumFillTop            = QColor(0xf8, 0x64, 0x51, 0xff); // #fff86451
+            p->spectrumFillBot            = QColor(0x56, 0xfc, 0x30, 0xff); // #ff56fc30
+
+            // Tuning & Passband Indicators
+            p->tuningLine                 = QColor(0xe9, 0x2b, 0x09, 0xff); // #ffe92b09
+            p->passband                   = QColor(0x3e, 0x56, 0x84, 0xff); // #ff3e5684
+            p->pbt                        = QColor(0x32, 0xff, 0x00, 0x00); // #0032ff00
+
+            // S-Meter Configuration
+            p->meterLevel                 = QColor(0x20, 0xb8, 0x32, 0xff); // #ff20b832
+            p->meterAverage               = QColor(0x25, 0x3b, 0xcd, 0xff); // #ff253bcd
+            p->meterPeakLevel             = QColor(0xdb, 0x0c, 0x21, 0xff); // #ffdb0c21
+            p->meterPeakScale             = QColor(0x80, 0x00, 0x00, 0xff); // #ff800000 (Meter High Scale)
+            p->meterLowerLine             = QColor(0x00, 0x00, 0x00, 0xff); // #ff000000 (Meter Scale)
+            p->meterLowText               = QColor(0x00, 0x00, 0x00, 0xff); // #ff000000 (Meter Text)
+
+            // Underlays & Gradient (Inactive in your setup)
+            p->underlayLine               = QColor(0x00, 0x00, 0xff, 0xff); // #ff0000ff
+            p->underlayFill               = QColor(0x64, 0x65, 0xe9, 0x96); // #966465e9
+            p->useUnderlayFillGradient    = false;                          // Underlay Gradient Disabled
+            p->underlayFillTop            = QColor(0x00, 0x00, 0x00, 0xff); // #ff000000
+            p->underlayFillBot            = QColor(0x00, 0x00, 0x00, 0xff); // #ff000000
+
+            // Waterfall Interface Settings
+            p->wfBackground               = QColor(0x1e, 0x39, 0x5e, 0xff); // #ff1e395e
+            p->wfGrid                     = QColor(0x00, 0x00, 0x00, 0x00); // #00000000
+            p->wfAxis                     = QColor(0xff, 0xff, 0xff, 0xff); // #ffffffff
+            p->wfText                     = QColor(0xff, 0xff, 0xff, 0xff); // #ffffffff
+
+            // Buttons & Cluster Elements
+            p->clusterSpots               = QColor(0xff, 0xff, 0x00, 0xff); // #ffffff00
+            p->buttonOff                  = QColor(0x64, 0x65, 0xe9, 0x96); // #966465e9
+            p->buttonOn                   = QColor(0x1f, 0xbd, 0x1c, 0xff); // #ff1fbd1c
+
+            break;
+        }
+
         case 3:
         case 4:
         default:
