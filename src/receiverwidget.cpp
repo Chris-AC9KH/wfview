@@ -241,6 +241,7 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
     splitter->addWidget(spectrum);
     splitter->addWidget(waterfall);
     splitter->setHandleWidth(5);
+    splitter->setStyleSheet("QSplitter::handle { background-color: #1e395e; }");
 
     spectrum->axisRect()->setMargins(QMargins(30,0,0,0));
     waterfall->axisRect()->setMargins(QMargins(30,0,0,0));
