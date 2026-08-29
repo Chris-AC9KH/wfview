@@ -485,6 +485,7 @@ private:
     QMenu* screenMenu = nullptr;
     Ui::wfmain *ui; // Main UI
     QVector<receiverWidget*>receivers;   // Spectrum Scope items.
+    QHBoxLayout* mainFreqRowLayout = Q_NULLPTR;  // Holds the relocated frequency row at the top of mainGroup.
     void closeEvent(QCloseEvent *event);
     QString logFilename;
     bool debugMode;

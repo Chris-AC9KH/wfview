@@ -140,6 +140,12 @@ public:
     QImage getWaterfallImage();
     bandType getCurrentBand();
 
+    // Allows the frequency/VFO row (normally shown just above the scope) to be
+    // relocated into a different QBoxLayout elsewhere in the UI. Moves the
+    // individual widgets/spacers (not the QHBoxLayout itself - Qt does not
+    // support reparenting an already-added child layout to a new parent layout).
+    void moveDisplayRowTo(QBoxLayout* target, int index = 0);
+
 public slots: // Can be called directly or updated via signal/slot
     void receiveSpots(uchar receiver, QList<spotData> spots);
     void memoryMode(bool en);
@@ -160,7 +166,6 @@ signals:
     void sendTrack(int f);
 
 private slots:
-    void detachScope(bool state);
     void updatedMode(int index);
     void toFixedPressed();
     void customSpanPressed();
@@ -193,8 +198,6 @@ private:
     QString defaultStyleSheet;
 
     QMutex mutex;
-    QWidget* originalParent = Q_NULLPTR;
-    QLabel* windowLabel = Q_NULLPTR;
     QCustomPlot* spectrum = Q_NULLPTR;
     QCustomPlot* waterfall = Q_NULLPTR;
     QLinearGradient spectrumGradient;
@@ -217,7 +220,6 @@ private:
     QVBoxLayout* rhsLayout;
     QHBoxLayout* displayLayout;
     QHBoxLayout* controlLayout;
-    QPushButton* detachButton;
     QLabel* scopeModeLabel;
     QComboBox* scopeModeCombo;
     QLabel* spanLabel;

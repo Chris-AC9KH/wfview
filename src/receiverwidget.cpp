@@ -22,7 +22,6 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
     splitter = new QSplitter(this);
     layout->addWidget(splitter);
     splitter->setOrientation(Qt::Vertical);
-    originalParent = parent;
 
     displayLayout = new QHBoxLayout();
 
@@ -154,10 +153,6 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
 
 
     controlLayout = new QHBoxLayout();
-    detachButton = new QPushButton(tr("Detach"));
-    detachButton->setCheckable(true);
-    detachButton->setToolTip(tr("Detach/re-attach scope from main window"));
-    detachButton->setChecked(false);
     //scopeModeLabel = new QLabel("Spectrum Mode:");
     scopeModeCombo = new QComboBox();
     scopeModeCombo->setAccessibleDescription(tr("Spectrum Mode"));
@@ -252,7 +247,6 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
 
     layout->addLayout(displayLayout);
     layout->addLayout(controlLayout);
-    controlLayout->addWidget(detachButton);
     controlLayout->addWidget(scopeModeCombo);
     controlLayout->addWidget(spanCombo);
     controlLayout->addWidget(edgeCombo);
@@ -568,8 +562,6 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
     configGroup->setVisible(false);
 
     // Connections
-    connect(detachButton,SIGNAL(toggled(bool)), this, SLOT(detachScope(bool)));
-
     connect(scopeModeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=](int val){
         uchar s = scopeModeCombo->itemData(val).value<uchar>();
         vfoCommandType t = queue->getVfoCommand(vfoA,receiver,true);
@@ -1326,7 +1318,6 @@ void receiverWidget::showHideControls(uchar mode)
             }
         }
     }
-    detachButton->show();
 
     if (rigCaps->hasSpectrum || rigCaps->commands.contains(funcIFShift) || rigCaps->commands.contains(funcPBTInner))
     {
@@ -2595,45 +2586,28 @@ void receiverWidget::setRefLimits(int lower, int upper)
     configRef->setRange(lower,upper);
 }
 
-void receiverWidget::detachScope(bool state)
+void receiverWidget::moveDisplayRowTo(QBoxLayout* target, int index)
 {
-    if (state)
+    if (!displayLayout || !target)
+        return;
+
+    QLayoutItem* item;
+    while ((item = displayLayout->takeAt(0)) != Q_NULLPTR)
     {
-        windowLabel = new QLabel();
-        detachButton->setText("Attach");
-        qInfo(logGui()) << "Detaching scope" << (receiver?"Sub":"Main");
-        this->parentWidget()->layout()->replaceWidget(this,windowLabel);
-
-        QTimer::singleShot(1, this, [&](){
-            if(originalParent) {
-                this->originalParent->resize(1,1);
-            }
-        });
-
-        this->parentWidget()->resize(1,1);
-        this->setParent(NULL);
-
-        //this->setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
-        //this->setWindowTitle(this->title());
-        this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint );
-
-        this->move(screen()->geometry().center() - frameGeometry().center());
-    } else {
-        detachButton->setText("Detach");
-        qInfo(logGui()) << "Attaching scope" << (receiver?"Sub":"Main");
-        windowLabel->parentWidget()->layout()->replaceWidget(windowLabel,this);
-
-        QTimer::singleShot(1, this, [&](){
-            if(originalParent) {
-                this->originalParent->resize(1,1);
-            }
-        });
-
-        windowLabel->setParent(NULL);
-        delete windowLabel;
+        if (QWidget* w = item->widget())
+        {
+            target->insertWidget(index++, w);
+            delete item; // wrapper only - does not delete the widget
+        }
+        else if (QSpacerItem* sp = item->spacerItem())
+        {
+            target->insertSpacerItem(index++, sp); // target now owns sp (== item)
+        }
+        else
+        {
+            delete item;
+        }
     }
-    // Force a redraw?
-    this->show();
 }
 
 void receiverWidget::changeSpan(qint8 val)

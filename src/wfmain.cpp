@@ -1168,6 +1168,17 @@ void wfmain::configureVFOs()
     }
 
     if (receivers.size()) {
+        if (mainFreqRowLayout) {
+            // These widgets belong to the receiver(s) we're about to delete -
+            // they were relocated here, so the old receiverWidget destructor
+            // won't clean them up. Destroy them explicitly first.
+            QLayoutItem* item;
+            while ((item = mainFreqRowLayout->takeAt(0)) != Q_NULLPTR) {
+                if (item->widget())
+                    delete item->widget();
+                delete item;
+            }
+        }
         foreach (receiverWidget* receiver, receivers)
         {
             ui->vfoLayout->removeWidget(receiver);
@@ -1196,6 +1207,16 @@ void wfmain::configureVFOs()
         receiver->colorPreset(&p);
         receiver->setIdentity(i==0?"Main Band":"Sub Band");
         ui->vfoLayout->addWidget(receiver);
+
+        if (i == 0) {
+            // Move the frequency/VFO row (Active Frequency, A<>B, A=B, V/M, SPLIT, etc.)
+            // out from above the scope and place it at the top of mainGroup instead.
+            if (!mainFreqRowLayout) {
+                mainFreqRowLayout = new QHBoxLayout();
+                ui->verticalLayout_2->insertLayout(0, mainFreqRowLayout);
+            }
+            receiver->moveDisplayRowTo(mainFreqRowLayout, 0);
+        }
 
         // Hide any secondary receivers until we need them!
         receiver->selected(i==0?true:false);
