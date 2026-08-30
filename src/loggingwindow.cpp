@@ -141,7 +141,7 @@ void loggingWindow::connectedToHost()
     QMutexLocker lock(&textMutex);
     QTextStream outText(socket);
     outText << ui->logTextDisplay->toPlainText();
-    outText << "\n----------\nSent from wfview version ";
+    outText << "\n----------\nSent from WFview version ";
     outText << WFVIEW_VERSION << "\n----------\n";
     outText.flush();
 }

@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 
 #ifdef BUILD_WFSERVER
     QCoreApplication a(argc, argv);
-    a.setOrganizationName("wfview");
+    a.setOrganizationName("WFview");
     a.setOrganizationDomain("wfview.org");
     a.setApplicationName("wfserver");
     keyboard* kb = Q_NULLPTR;
@@ -115,10 +115,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QApplication a(argc, argv);
-    a.setOrganizationName("wfview");
+    a.setOrganizationName("WFview");
     a.setOrganizationDomain("wfview.org");
-    a.setApplicationName("wfview");
-    a.setDesktopFileName("wfview");
+    a.setApplicationName("WFview");
+    a.setDesktopFileName("WFview");
 #endif
 
 #ifdef QT_DEBUG
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
         .arg(QSysInfo::prettyProductName()).arg(QSysInfo::buildCpuArchitecture())
         .arg(QT_VERSION_STR).arg(qVersion());
 #else
-    const QString version = QString("wfview version: %1 (Git:%2 on %3 at %4 by %5@%6)\nOperating System: %7 (%8)\nBuild Qt Version %9. Current Qt Version: %10\n")
+    const QString version = QString("WFview version: %1 (Git:%2 on %3 at %4 by %5@%6)\nOperating System: %7 (%8)\nBuild Qt Version %9. Current Qt Version: %10\n")
         .arg(QString(WFVIEW_VERSION))
         .arg(GITSHORT).arg(__DATE__).arg(__TIME__).arg(UNAME).arg(HOST)
         .arg(QSysInfo::prettyProductName()).arg(QSysInfo::buildCpuArchitecture())
@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
     QTranslator myappTranslator;
     qDebug() << "Current translation language: " << myappTranslator.language();
 
-    bool trResult = myappTranslator.load(QLocale(), QLatin1String("wfview"), QLatin1String("_"), QLatin1String(":/translations"));
+    bool trResult = myappTranslator.load(QLocale(), QLatin1String("WFview"), QLatin1String("_"), QLatin1String(":/translations"));
     if(trResult) {
         qDebug() << "Recognized requested language and loaded the translations (or at least found the /translations resource folder). Installing translator.";
         a.installTranslator(&myappTranslator);
@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
                     }
 
                     delete settings;
-                    std::cout << QString("All wfview settings cleared.\n").toStdString();
+                    std::cout << QString("All WFview settings cleared.\n").toStdString();
                     exit(0);
                 }
             }

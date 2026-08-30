@@ -116,7 +116,7 @@
               <item row="0" column="0">
                <widget class="QCheckBox" name="rigCIVManualAddrChk">
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are using an older (year 2010) radio, you may need to enable this option to manually specify the CI-V address. This option is also useful for radios that do not have CI-V Transceive enabled and thus will not answer our broadcast query for connected rigs on the CI-V bus.&lt;/p&gt;&lt;p&gt;If you have a modern radio with CI-V Transceive enabled, you should not need to check this box. &lt;/p&gt;&lt;p&gt;You will need to Save Settings and re-launch wfview for this to take effect. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are using an older (year 2010) radio, you may need to enable this option to manually specify the CI-V address. This option is also useful for radios that do not have CI-V Transceive enabled and thus will not answer our broadcast query for connected rigs on the CI-V bus.&lt;/p&gt;&lt;p&gt;If you have a modern radio with CI-V Transceive enabled, you should not need to check this box. &lt;/p&gt;&lt;p&gt;You will need to Save Settings and re-launch WFview for this to take effect. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="accessibleName">
                  <string>Manual CI-V address Checkbox</string>
@@ -129,7 +129,7 @@
               <item row="2" column="0">
                <widget class="QCheckBox" name="useCIVasRigIDChk">
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only check for older radios!&lt;/p&gt;&lt;p&gt;This checkbox forces wfview to trust that the CI-V address is also the model number of the radio. This is only useful for older radios that do not reply to our Rig ID requests (0x19 0x00). Do not check this box unless you have an older radio. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only check for older radios!&lt;/p&gt;&lt;p&gt;This checkbox forces WFview to trust that the CI-V address is also the model number of the radio. This is only useful for older radios that do not reply to our Rig ID requests (0x19 0x00). Do not check this box unless you have an older radio. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="accessibleName">
                  <string>Use CI-V address as Model ID checkbox</string>
@@ -168,7 +168,7 @@
 &lt;br/&gt;IC-7200: 76 
 &lt;br/&gt;IC-7300: 94
 &lt;/p&gt;&lt;p&gt;This setting is typically needed for older radios and for radios that do not have CI-V Transceive enabled. &lt;/p&gt;
-&lt;p&gt;After changing, press Save Settings and re-launch wfview.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p&gt;After changing, press Save Settings and re-launch WFview.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="accessibleName">
                  <string>Manual CI-V Textbox</string>
@@ -1333,7 +1333,7 @@ ONLY use Manual CI-V when Transceive mode is not supported</string>
            <item>
             <widget class="QRadioButton" name="autoPollBtn">
              <property name="toolTip">
-              <string>wfview will automatically calculate command polling. Recommended.</string>
+              <string>WFview will automatically calculate command polling. Recommended.</string>
              </property>
              <property name="text">
               <string>AutoPolling</string>

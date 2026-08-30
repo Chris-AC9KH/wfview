@@ -224,7 +224,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the transmit frequency to the receive frequency PLUS the offset. Sets the radio sub VFO and also populates the wfview text box (as a convenience). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the transmit frequency to the receive frequency PLUS the offset. Sets the radio sub VFO and also populates the WFview text box (as a convenience). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Split+</string>
@@ -240,7 +240,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the transmit frequency to the receive frequency PLUS the offset. Sets the radio sub VFO and also populates the wfview text box (as a convenience). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the transmit frequency to the receive frequency PLUS the offset. Sets the radio sub VFO and also populates the WFview text box (as a convenience). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Split-</string>

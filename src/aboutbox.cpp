@@ -6,20 +6,20 @@ aboutbox::aboutbox(QWidget *parent) :
     ui(new Ui::aboutbox)
 {
     ui->setupUi(this);
-    setWindowTitle("About wfview");
+    setWindowTitle("About WFview");
     setWindowIcon(QIcon(":resources/wfview.png"));
 
     ui->logoBtn->setIcon(QIcon(":resources/wfview.png"));
     ui->logoBtn->setStyleSheet("Text-align:left");
 
-    ui->topText->setText("wfview version " + QString(WFVIEW_VERSION));
+    ui->topText->setText("WFview version " + QString(WFVIEW_VERSION));
 
     QString head = QString("<html><head></head><body>");
-    QString copyright = QString("Copyright 2017-2026 Elliott H. Liggett, W6EL and Phil E. Taylor, M0VSE. All rights reserved.<br/>wfview source code is <a href=\"https://gitlab.com/eliggett/wfview/-/blob/master/LICENSE\">licensed</a> under the GNU GPLv3.");
+    QString copyright = QString("Copyright 2017-2026 Elliott H. Liggett, W6EL and Phil E. Taylor, M0VSE. All rights reserved.<br/>WFview source code is <a href=\"https://gitlab.com/eliggett/wfview/-/blob/master/LICENSE\">licensed</a> under the GNU GPLv3.");
     QString scm = QString("<br/><br/>Source code and issues managed by Roeland Jansen, PA3MET");
     QString doctest = QString("<br/><br/>Testing and development mentorship from Jim Nijkamp, PA8E.");
 
-    QString dedication = QString("<br/><br/><b>This version of wfview is dedicated to the natural pursuit of freedom by people everywhere.</b> "
+    QString dedication = QString("<br/><br/><b>This version of WFview is dedicated to the natural pursuit of freedom by people everywhere.</b> "
                                  "<br/><br/>Special thanks to Tony Collen, N0RUA/AE0KW (SK), for his work on open890, which was the inspiration for our support of the Kenwood TS-890. "
                                  "<br/><br/>Special thanks to our translators:<br/>Siwij Cat TA1YEP (Turkish)<br/>OK2HAM (Czech)<br/>JG3HLX (Japanese)<br/>Dawid SQ6EMM (Polish)<br/>Jim PA8E (Dutch)<br/>David Acacio EA3IPX (Spanish)");
 
@@ -34,12 +34,12 @@ aboutbox::aboutbox(QWidget *parent) :
     QString donate = QString("<br/><br/>Join us on <a href=\"https://www.patreon.com/wfview\">Patreon</a> for a behind-the-scenes look at wfview development, nightly builds, and to support the software you love.");
 
     QString docs = QString("<br/><br/>Be sure to check the <a href=\"https://wfview.org/wfview-user-manual/\"  style=\"color: cyan;\">User Manual</a> and <a href=\"https://forum.wfview.org/\"  style=\"color: cyan;\">the Forum</a> if you have any questions.");
-    QString support = QString("<br/><br/>For support, please visit <a href=\"https://forum.wfview.org/\">the official wfview support forum</a>.");
+    QString support = QString("<br/><br/>For support, please visit <a href=\"https://forum.wfview.org/\">the official WFview support forum</a>.");
     QString gitcodelink = QString("<a href=\"https://github.com/Chris-AC9KH/wfview/commit/%1\"  style=\"color: blue;\">").arg(GITSHORT);
 
     QString buildInfo = QString(
         "<br/><br/>Build %1%2</a> on %3 at %4 by %5@%6"
-        "<br/>This copy of wfview modified by Chris Olson AC9KH for MacOS"
+        "<br/>This copy of WFview modified by Chris Olson AC9KH for MacOS"
     ).arg(
         gitcodelink,
         QString(GITSHORT),
@@ -54,20 +54,20 @@ aboutbox::aboutbox(QWidget *parent) :
     QString pluginDysonCredit = QString("<br/><br/>Dyson Compressor (c) 1996, John S. Dyson. Redistribution of the Dyson Compressor requires this copyright notice.");
     QString pluginMBEQCredit = QString("<br/><br/>Multiband EQ, \"Triple Para EQ\" and Gate 1410 processors (c) Steve Harris, GNU/GPL licensed.");
     QString pocketFFTCredit = QString("<br/><br/><a href=\"https://gitlab.mpcdf.mpg.de/mtr/pocketfft\">PocketFFT</a> is from Martin Reinecke and used under a BSD 3-Clause New or Revised License. It is (c) 2010-2019 Max-Planck-Society and is based on FFT Pack (FORTRAN) which was written by Paul N. Swarztrauber in 1985, and is copyright by the National Center for Atmospheric Research, Boulder, CO");
-    QString anrCredit = QString("<br/><br/>Audacity Noise Reduction algorithm from <a href=\"https://github.com/tals/audacity-noise-reduction/tree/master\">here</a> is from Dominic Mazzoni, rewritten by Paul Licameli, with modifications for wfview's streaming usage. The license is GNU/GPL.");
+    QString anrCredit = QString("<br/><br/>Audacity Noise Reduction algorithm from <a href=\"https://github.com/tals/audacity-noise-reduction/tree/master\">here</a> is from Dominic Mazzoni, rewritten by Paul Licameli, with modifications for WFview's streaming usage. The license is GNU/GPL.");
     QString rsCredit = QString("<br/><br/><a href=\"https://www.speex.org/\"  style=\"color: cyan;\">Speex</a> Resample library and DSP noise reduction code Copyright 2003-2008 Jean-Marc Valin");
     QString rtaudiocredit = QString("<br/><br/>RT Audio, from <a href=\"https://www.music.mcgill.ca/~gary/rtaudio/index.html\">Gary P. Scavone</a>");
     QString portaudiocredit = QString("<br/><br/>Port Audio, from <a href=\"http://portaudio.com\">The Port Audio Community</a>");
     QString qcpcredit = QString("<br/><br/>The waterfall and spectrum plot graphics use QCustomPlot, from  <a href=\"https://www.qcustomplot.com/\">Emanuel Eichhammer</a>");
-    QString qtcredit = QString("<br/><br/>This copy of wfview was built against Qt version %1").arg(QT_VERSION_STR);
-    QString hamlibcredit = QString("<br/><br/>wfview contains our own implementation of the Hamlib rigctl protocol which uses portions of code from <a href=\"https://hamlib.github.io/\">Hamlib</a><br/>Copyright (C) 2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012 The Hamlib Group");
-    QString adpcmcredit = QString("<br/><br/>wfview contains the adpcm-xq audio encoder/decoder - Copyright (c) David Bryant All rights reserved.");
+    QString qtcredit = QString("<br/><br/>This copy of WFview was built against Qt version %1").arg(QT_VERSION_STR);
+    QString hamlibcredit = QString("<br/><br/>WFview contains our own implementation of the Hamlib rigctl protocol which uses portions of code from <a href=\"https://hamlib.github.io/\">Hamlib</a><br/>Copyright (C) 2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012 The Hamlib Group");
+    QString adpcmcredit = QString("<br/><br/>WFview contains the adpcm-xq audio encoder/decoder - Copyright (c) David Bryant All rights reserved.");
 
     // Acknowledgement:
-    QString wfviewcommunityack = QString("<br/><br/>The developers of wfview wish to thank the many contributions from the wfview community at-large, including ideas, bug reports, and fixes.");
+    QString wfviewcommunityack = QString("<br/><br/>The developers of WFview wish to thank the many contributions from the WFview community at-large, including ideas, bug reports, and fixes.");
     QString kappanhangack = QString("<br/><br/>Special thanks to Norbert Varga, and the <a href=\"https://github.com/nonoo/kappanhang\">nonoo/kappanhang team</a> for their initial work on the OEM protocol.");
 
-    QString kb3mmwCredit = QString("<br/><br/>Many thanks to KB3MMW who assisted with the reverse enginering of the Yaesu LAN protocol. Portions of his code which he has released under LGPL/GPL have been integrated within wfview <a href=\"https://forum.wfview.org/t/off-topic-yaesu-ft710-and-others/3275/46\">Forum post</a>");
+    QString kb3mmwCredit = QString("<br/><br/>Many thanks to KB3MMW who assisted with the reverse enginering of the Yaesu LAN protocol. Portions of his code which he has released under LGPL/GPL have been integrated within WFview <a href=\"https://forum.wfview.org/t/off-topic-yaesu-ft710-and-others/3275/46\">Forum post</a>");
 
     QString sxcreditcopyright = QString("Speex copyright notice:\n"
         "Copyright (C) 2003 Jean-Marc Valin\n"
@@ -97,7 +97,7 @@ aboutbox::aboutbox(QWidget *parent) :
     QString freqCtlCredit = QString("/*"
         "* Frequency controller widget (originally from CuteSDR)\n"
         "*\n"
-        "* This code is used within wfview and was modified\n"
+        "* This code is used within WFview and was modified\n"
         "* You can download the source code from here: \n"
         "* https://gitlab.com/eliggett/wfview/\n"
         "*\n"

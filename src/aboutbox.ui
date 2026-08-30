@@ -45,7 +45,7 @@
    <item>
     <widget class="QLabel" name="topText">
      <property name="text">
-      <string>wfview version</string>
+      <string>WFview version</string>
      </property>
     </widget>
    </item>

@@ -26,7 +26,7 @@ endif()
 # Project settings for name and version of this build
 #------------------------------------------------------------------------------#
 project(
-    wfview
+    WFview
     VERSION 2.25
     LANGUAGES C CXX
 )
@@ -281,7 +281,7 @@ target_sources (${TARGET} PRIVATE
     src/wfmain.cpp src/wfmain.ui
 )
 
-target_include_directories(wfview PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
     include
     src
     src/audio
@@ -309,13 +309,13 @@ target_compile_definitions(${TARGET} PRIVATE
 )
 
 if(USB_CONTROLLER)
-    target_compile_definitions(wfview PRIVATE USB_CONTROLLER)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE USB_CONTROLLER)
 endif()
 
 #------------------------------------------------------------------------------#
 # Link libraries common to all platforms
 #------------------------------------------------------------------------------#
-target_link_libraries(wfview PRIVATE
+target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Multimedia
@@ -370,7 +370,7 @@ set(style_resource_files
     "qdarkstyle/rc/up_arrow_disabled.png"
 )
 
-qt_add_resources(wfview "style"
+qt_add_resources(${PROJECT_NAME} "style"
     PREFIX
         "/qss_icons"
     BASE
@@ -383,7 +383,7 @@ set(style1_resource_files
     "qdarkstyle/style.qss"
 )
 
-qt_add_resources(wfview "style1"
+qt_add_resources(${PROJECT_NAME} "style1"
     PREFIX
         "/qdarkstyle"
     BASE
@@ -411,7 +411,7 @@ set(resources_resource_files
     "resources/xbox.png"
 )
 
-qt_add_resources(wfview "resources"
+qt_add_resources(${PROJECT_NAME} "resources"
     PREFIX
         "/resources"
     BASE
@@ -434,7 +434,7 @@ set(translation_resource_files
     "translations/wfview_zh_TW.qm"
 )
 
-qt_add_resources(wfview "translation"
+qt_add_resources(${PROJECT_NAME} "translation"
     PREFIX
         "/translations"
     BASE
@@ -444,30 +444,30 @@ qt_add_resources(wfview "translation"
 )
 
 if (WIN32)
-    target_include_directories(wfview PRIVATE
+    target_include_directories(${PROJECT_NAME} PRIVATE
         libraries
         qcustomplot
     )
 
-    target_compile_definitions(wfview PRIVATE
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
         GITSHORT=\"-C-parse--shortHEAD\"
         HOST=\"\"
         UNAME=\"%USERNAME%\"
         __WINDOWS_WASAPI__
     )
 
-    target_link_libraries(wfview PRIVATE
+    target_link_libraries(${PROJECT_NAME} PRIVATE
         ole32
         user32
     )
 endif()
 
 if (LINUX)
-    target_compile_definitions(wfview PRIVATE
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
         __LINUX_PULSE__
     )
 
-    target_link_libraries(wfview PRIVATE
+    target_link_libraries(${PROJECT_NAME} PRIVATE
         PkgConfig::Libudev
         pthread
         pulse
@@ -477,11 +477,11 @@ if (LINUX)
 endif()
 
 if (APPLE)
-    target_compile_definitions(wfview PRIVATE
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
         __MACOSX_CORE__
     )
 
-    target_link_libraries(wfview PRIVATE
+    target_link_libraries(${PROJECT_NAME} PRIVATE
         "-framework CoreAudio"
         "-framework CoreFoundation"
         pthread
@@ -489,11 +489,11 @@ if (APPLE)
 endif()
 
 if (NOT LINUX)
-    target_sources(wfview PUBLIC
+    target_sources(${PROJECT_NAME} PUBLIC
         rtaudio/RTAudio.cpp rtaudio/RTAudio.h
     )
 
-    target_include_directories(wfview PRIVATE
+    target_include_directories(${PROJECT_NAME} PRIVATE
         eigen
         opus/include
         r8brain-free-src
@@ -526,7 +526,7 @@ if(UNIX)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    target_compile_definitions(wfview PRIVATE
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
         GITSHORT="${GIT_HASH}"
         HOST="${HOSTNAME}"
         UNAME="${USERNAME}"
@@ -539,38 +539,38 @@ endif()
 #------------------------------------------------------------------------------#
 if(PortAudio_FOUND)
     if(TARGET PortAudio::PortAudio)
-        target_link_libraries(wfview PRIVATE PortAudio::PortAudio)
+        target_link_libraries(${PROJECT_NAME} PRIVATE PortAudio::PortAudio)
     elseif(TARGET PortAudio::portaudio)
-        target_link_libraries(wfview PRIVATE PortAudio::portaudio)
+        target_link_libraries(${PROJECT_NAME} PRIVATE PortAudio::portaudio)
     else()
-        target_link_libraries(wfview PRIVATE portaudio)
+        target_link_libraries(${PROJECT_NAME} PRIVATE portaudio)
     endif()
 else()
-    target_link_libraries(wfview PRIVATE portaudio)
+    target_link_libraries(${PROJECT_NAME} PRIVATE portaudio)
 endif()
 
 if(Opus_FOUND)
     # Common imported target name used by FindOpus modules
     if(TARGET Opus::opus)
-        target_link_libraries(wfview PRIVATE Opus::opus)
+        target_link_libraries(${PROJECT_NAME} PRIVATE Opus::opus)
     else()
-        target_link_libraries(wfview PRIVATE opus)
+        target_link_libraries(${PROJECT_NAME} PRIVATE opus)
     endif()
 else()
-    target_link_libraries(wfview PRIVATE opus)
+    target_link_libraries(${PROJECT_NAME} PRIVATE opus)
 endif()
 
 #------------------------------------------------------------------------------#
 # SIMD definitions based on architecture
 #------------------------------------------------------------------------------#
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64|i.86")
-    target_compile_definitions(wfview PRIVATE
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
         EIGEN_VECTORIZE_SSE3
         USE_SSE
         USE_SSE2
     )
 elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
-    target_compile_definitions(wfview PRIVATE
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
         USE_NEON
     )
 endif()
@@ -581,30 +581,30 @@ endif()
 if(USB_CONTROLLER)
     if(APPLE)
         if(TARGET hidapi::hidapi)
-            target_link_libraries(wfview PRIVATE hidapi::hidapi)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi::hidapi)
         else()
-            target_link_libraries(wfview PRIVATE hidapi)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi)
         endif()
     elseif(LINUX)
         if(TARGET hidapi::hidapi-libusb)
-            target_link_libraries(wfview PRIVATE hidapi::hidapi-libusb)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi::hidapi-libusb)
         elseif(TARGET hidapi::hidapi)
-            target_link_libraries(wfview PRIVATE hidapi::hidapi)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi::hidapi)
         else()
-            target_link_libraries(wfview PRIVATE hidapi-libusb)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi-libusb)
         endif()
     elseif(WIN32)
         # Keep include hint for local headers if needed
-        target_include_directories(wfview PRIVATE ../hidapi/hidapi)
+        target_include_directories(${PROJECT_NAME} PRIVATE ../hidapi/hidapi)
         if(TARGET hidapi::hidapi)
-            target_link_libraries(wfview PRIVATE hidapi::hidapi)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi::hidapi)
         else()
-            target_link_libraries(wfview PRIVATE hidapi)
+            target_link_libraries(${PROJECT_NAME} PRIVATE hidapi)
         endif()
     endif()
 endif()
 
-install(TARGETS wfview
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

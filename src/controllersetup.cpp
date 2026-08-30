@@ -1053,7 +1053,7 @@ void controllerSetup::on_restoreButton_clicked()
         {
             QMessageBox msgBox;
             msgBox.setText("Version mismatch");
-            msgBox.setInformativeText(QString("Backup was from a different version of wfview\nBackup: %0 \nCurrent: %1\n\nPlease verify compatibility").arg(version, QString(WFVIEW_VERSION)));
+            msgBox.setInformativeText(QString("Backup was from a different version of WFview\nBackup: %0 \nCurrent: %1\n\nPlease verify compatibility").arg(version, QString(WFVIEW_VERSION)));
             msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
             msgBox.setDefaultButton(QMessageBox::Cancel);
             int ret= msgBox.exec();

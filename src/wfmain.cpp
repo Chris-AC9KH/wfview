@@ -30,14 +30,14 @@ wfmain::wfmain(const QString settingsFile, const QString logFile, bool debugMode
     ui(new Ui::wfmain),
     logFilename(logFile)
 {
-    QGuiApplication::setApplicationDisplayName("wfview");
+    QGuiApplication::setApplicationDisplayName("WFview");
     QGuiApplication::setApplicationName(QString("wfview"));
 
     setWindowIcon(QIcon( QString(":resources/wfview.png")));
     this->debugMode = debugMode;
     debugModeLogging = debugMode;
     ui->setupUi(this);
-    setWindowTitle(QString("wfview"));
+    setWindowTitle(QString("WFview"));
 
     ui->monitorLabel->setText("Mon");
 
@@ -62,7 +62,7 @@ wfmain::wfmain(const QString settingsFile, const QString logFile, bool debugMode
     logWindow = new loggingWindow(logFile);
     initLogging();
     logWindow->setInitialDebugState(debugMode);
-    qInfo(logSystem()).noquote() << QString("wfview version: %1 (Git:%2 on %3 at %4 by %5@%6)")
+    qInfo(logSystem()).noquote() << QString("WFview version: %1 (Git:%2 on %3 at %4 by %5@%6)")
                           .arg(QString(WFVIEW_VERSION),GITSHORT,__DATE__,__TIME__,UNAME,HOST);
 
     qInfo(logSystem()).noquote() << QString("Operating System: %0 (%1)").arg(QSysInfo::prettyProductName(),QSysInfo::buildCpuArchitecture());
@@ -1976,7 +1976,7 @@ void wfmain::loadSettings()
     }
     if(priorVersionFloat > currentVersionFloat)
     {
-        qWarning(logSystem()).noquote().nospace() << "It looks like the previous version of wfview (" << priorVersionString << ") was newer than this version (" << currentVersionString << ")";
+        qWarning(logSystem()).noquote().nospace() << "It looks like the previous version of WFview (" << priorVersionString << ") was newer than this version (" << currentVersionString << ")";
     }
     prefs.version = priorVersionString;
     prefs.majorVersion = settings->value("majorVersion", defPrefs.majorVersion).toInt();
@@ -4785,7 +4785,7 @@ void wfmain::handleExtConnectBtn() {
 void wfmain::handleRevertSettingsBtn() {
     // from settings widget
     int ret = QMessageBox::warning(this, tr("Revert settings"),
-                                   tr("Are you sure you wish to reset all wfview settings?\nIf so, wfview will exit and you will need to start the program again."),
+                                   tr("Are you sure you wish to reset all WFview settings?\nIf so, WFview will exit and you will need to start the program again."),
                                    QMessageBox::Ok | QMessageBox::Cancel,
                                    QMessageBox::Cancel);
     if (ret == QMessageBox::Ok) {
@@ -4796,7 +4796,7 @@ void wfmain::handleRevertSettingsBtn() {
         serverConfig.users.clear();
 
         saveSettings();
-        qInfo(logSystem()) << "Closing wfview for full preference-reset.";
+        qInfo(logSystem()) << "Closing WFview for full preference-reset.";
         QApplication::exit();
     }
 }
