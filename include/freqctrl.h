@@ -46,6 +46,7 @@ public:
     void     setBgColor(QColor col);
     void     setUnitsColor(QColor col);
     void     setHighlightColor(QColor col);
+    void     setInactiveColor(QColor col);
     void     setSeparators(QChar group, QChar decimal) { gsep=group; dsep=decimal; m_UpdateAll=true;}
 
     qint64 getFrequency() const

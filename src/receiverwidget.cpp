@@ -92,6 +92,11 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
     for (uchar i=0;i<numVFO;i++)
     {
         freqCtrl* fr = new freqCtrl(this);
+        fr->setBgColor(QColor(0x00, 0x00, 0x00, 0xFF));
+        fr->setDigitColor(QColor(0x39, 0xFF, 0x14, 0xFF));
+        fr->setUnitsColor(QColor(0x39, 0xFF, 0x14, 0xFF));
+        fr->setInactiveColor(QColor(0x00, 0x64, 0x00, 0xFF));
+        fr->setHighlightColor(QColor(0x00, 0x40, 0x00, 0xFF));
         qDebug() << "Adding VFO" << i << "on receiver" << receiver;
         if (i==0)
         {

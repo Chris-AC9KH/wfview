@@ -450,6 +450,15 @@ void freqCtrl::setHighlightColor(QColor col)
     updateCtrl(true);
 }
 
+void freqCtrl::setInactiveColor(QColor col)
+{
+    m_UpdateAll = true;
+    m_InactiveColor = col;
+    for (int i = m_DigStart; i < m_NumDigits; i++)
+        m_DigitInfo[i].modified = true;
+    updateCtrl(true);
+}
+
 void freqCtrl::updateCtrl(bool all)
 {
     if (all)
