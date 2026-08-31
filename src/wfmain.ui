@@ -168,7 +168,7 @@
            <property name="rightMargin">
             <number>0</number>
            </property>
-           <item>
+           <item alignment="Qt::AlignHCenter">
             <widget class="QDial" name="freqDial">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -209,10 +209,26 @@
              <property name="notchesVisible">
               <bool>true</bool>
              </property>
+             <property name="styleSheet">
+              <string>
+                QDial {
+                    background-color: #232323;
+                }
+                QDial::handle {
+                    background-color: #a0a0a0;
+                }
+              </string>
+             </property>
             </widget>
            </item>
-           <item>
+           <item alignment="Qt::AlignHCenter">
             <widget class="QComboBox" name="tuningStepCombo">
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>Tuning Step Selection possibly. Or not...</string>
              </property>
@@ -224,24 +240,24 @@
              </property>
             </widget>
            </item>
-           <item>
+           <item alignment="Qt::AlignHCenter">
             <widget class="QCheckBox" name="tuneLockChk">
              <property name="accessibleName">
               <string>Frequency Lock</string>
              </property>
              <property name="text">
-              <string>F Lock</string>
+              <string>Frequency Tuning Lock</string>
              </property>
             </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_25">
-             <item>
+             <item alignment="Qt::AlignHCenter">
               <widget class="QDial" name="ritTuneDial">
                <property name="maximumSize">
                 <size>
-                 <width>30</width>
-                 <height>30</height>
+                 <width>70</width>
+                 <height>70</height>
                 </size>
                </property>
                <property name="accessibleName">
@@ -268,15 +284,31 @@
                <property name="notchesVisible">
                 <bool>true</bool>
                </property>
+               <property name="styleSheet">
+                <string>
+                  QDial {
+                      background-color: #232323;
+                  }
+                  QDial::handle {
+                      background-color: #a0a0a0;
+                  }
+                </string>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="ritEnableChk">
+               <property name="maximumSize">
+                <size>
+                 <width>90</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="accessibleName">
                 <string>R I T Enable</string>
                </property>
                <property name="text">
-                <string>RIT</string>
+                <string>RIT Enable</string>
                </property>
               </widget>
              </item>
@@ -779,6 +811,12 @@
                <height>50</height>
               </size>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>110</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
@@ -792,6 +830,12 @@
            </item>
            <item>
             <widget class="QCheckBox" name="tuneEnableChk">
+             <property name="maximumSize">
+              <size>
+               <width>110</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>Enable the Automatic Antenna Tuner</string>
              </property>
@@ -808,6 +852,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="tuneNowBtn">
+             <property name="maximumSize">
+              <size>
+               <width>110</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
@@ -821,6 +871,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="cwButton">
+             <property name="maximumSize">
+              <size>
+               <width>110</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
@@ -834,6 +890,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="rptSetupBtn">
+             <property name="maximumSize">
+              <size>
+               <width>110</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
@@ -847,6 +909,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="memoriesBtn">
+             <property name="maximumSize">
+              <size>
+               <width>110</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
