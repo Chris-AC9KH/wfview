@@ -56,7 +56,7 @@ receiverWidget::receiverWidget(bool scope, uchar receiver, uchar vfo, QWidget *p
         queue->add(priorityHighest,t.freqFunc,false,t.receiver);
     });
 
-    vfoMemoryButton=new QPushButton(tr("V/M"),this);
+    vfoMemoryButton=new QPushButton(tr("VFO/Mem"),this);
     vfoMemoryButton->setHidden(true);
     vfoMemoryButton->setCheckable(true);
     vfoMemoryButton->setFocusPolicy(Qt::StrongFocus);
@@ -884,14 +884,20 @@ void receiverWidget::colorPreset(colorPrefsType *cp)
 
     waterfall->setBackground(cp->wfBackground);
 
-    holdButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
-                                  .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
-    splitButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
-                                   .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
+    holdButton->setStyleSheet(QString(
+        "QPushButton {background-color: %0; border-radius: 4px; border: 1px solid #999;} "
+        "QPushButton:checked {background-color: %1; border-radius: 4px; border: 1px solid;}")
+            .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
+    splitButton->setStyleSheet(QString(
+        "QPushButton {background-color: %0; border-radius: 4px; border: 1px solid #999;} "
+        "QPushButton:checked {background-color: %1; border-radius: 4px; border: 1px solid;}")
+        .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
     satelliteButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
                                    .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
-    vfoMemoryButton->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border:1px solid;}")
-                                   .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
+    vfoMemoryButton->setStyleSheet(QString(
+        "QPushButton {background-color: %0; border-radius: 4px; border: 1px solid #999;} "
+        "QPushButton:checked {background-color: %1; border-radius: 4px; border: 1px solid;}")
+        .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
 
 }
 

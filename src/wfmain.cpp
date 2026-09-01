@@ -2886,8 +2886,10 @@ void wfmain::extChangedColPref(prefColItem i)
                                         .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
         ui->dualWatchBtn->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border: 1px solid;}")
                                         .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
-        ui->splitBtn->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border: 1px solid;}")
-                                        .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
+        ui->splitBtn->setStyleSheet(QString(
+            "QPushButton {background-color: %0; border-radius: 4px; border: 1px solid #999;} "
+            "QPushButton:checked {background-color: %1; border-radius: 4px; border: 1px solid;}")
+            .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
         //    ui->mainSubTrackingBtn->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border: 1px solid;}")
         //                                    .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
     case col_grid:
@@ -4272,7 +4274,7 @@ void wfmain::setDefaultColors(int presetNumber)
 
             // Buttons & Cluster Elements
             p->clusterSpots               = QColor(0xff, 0xff, 0x00, 0xff); // #ffffff00
-            p->buttonOff                  = QColor(0x64, 0x65, 0xe9, 0x96); // #966465e9
+            p->buttonOff                  = QColor(0xcb, 0xcb, 0xcb, 0x96); // #96cbcbcb
             p->buttonOn                   = QColor(0x1f, 0xbd, 0x1c, 0xff); // #ff1fbd1c
 
             break;
@@ -4381,9 +4383,10 @@ void wfmain::changeTxBtn()
     if(amTransmitting)
     {
         ui->transmitBtn->setText("Receive");
-
+        ui->transmitBtn->setStyleSheet("QPushButton {background-color: #cc3333; color: white; border-radius: 4px; border: 1px solid #992222;}");
     } else {
         ui->transmitBtn->setText("Transmit");
+        ui->transmitBtn->setStyleSheet("QPushButton {background-color: #e0e0e0; color: black; border-radius: 4px; border: 1px solid #999999;}");
     }
 }
 
@@ -5579,8 +5582,10 @@ void wfmain::useColorPreset(colorPrefsType *cp)
                                     .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
     ui->dualWatchBtn->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border: 1px solid;}")
                                     .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
-    ui->splitBtn->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border: 1px solid;}")
-                                    .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
+    ui->splitBtn->setStyleSheet(QString(
+        "QPushButton {background-color: %0; border-radius: 4px; border: 1px solid #999;} "
+        "QPushButton:checked {background-color: %1; border-radius: 4px; border: 1px solid;}")
+        .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
     //ui->mainSubTrackingBtn->setStyleSheet(QString("QPushButton {background-color: %0;} QPushButton:checked {background-color: %1;border: 1px solid;}")
     //                                .arg(cp->buttonOff.name(QColor::HexArgb),cp->buttonOn.name(QColor::HexArgb)));
 
