@@ -59,6 +59,7 @@
 #include "debugwindow.h"
 #include "receiverwidget.h"
 #include "tciserver.h"
+#include "tciaudiobridge.h"
 
 #include "../qcustomplot/qcustomplot.h"
 #include <qserialportinfo.h>
@@ -342,6 +343,7 @@ private slots:
     void runShortcut(const QKeySequence k);
 
     void handlePttLimit(); // hit at 3 min transmit length
+    void tciAudioActive(bool active);
 
     void doShuttle(bool up, quint8 level);
 
@@ -689,6 +691,7 @@ private:
     rigCtlD* rigCtl = nullptr;
     tciServer* tci = nullptr;
     QThread* tciThread = nullptr;
+    tciAudioBridge* tciBridge = nullptr;
 
     void bandStackBtnClick();
     bool waitingForBandStackRtn;

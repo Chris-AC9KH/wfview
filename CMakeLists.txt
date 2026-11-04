@@ -104,6 +104,7 @@ target_sources (${TARGET} PRIVATE
     include/audiohandlerrtoutput.h
     include/audiohandlertciinput.h
     include/audiohandlertcioutput.h
+    include/tciaudiobridge.h
     include/audiotaper.h
     include/bandbuttons.h
     include/bytering.h
@@ -192,6 +193,7 @@ target_sources (${TARGET} PRIVATE
     src/audio/audiohandlerrtoutput.cpp
     src/audio/audiohandlertciinput.cpp
     src/audio/audiohandlertcioutput.cpp
+    src/audio/tciaudiobridge.cpp
     src/audio/plugins/dyson_compress.cpp
     src/audio/plugins/dysoncompress.h
     src/audio/plugins/mbeq.cpp
