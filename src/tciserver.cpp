@@ -502,21 +502,38 @@ void tciServer::processIncomingBinaryMessage(QByteArray message) {
     if (pStream->type != TxAudioStream || pStream->length == 0)
         return;
 
-    if (pStream->format != IqFloat32) {
-        static int warned = 0;
-        if (warned++ < 3) {
-            qWarning() << "TCI TX audio format" << pStream->format
-                       << "not supported yet (float32 only)";
+    QByteArray tempData;
+
+    if (pStream->format == IqFloat32) {
+        // --- Native Float32 Path ---
+        const qsizetype available =
+            (message.size() - qsizetype(iqHeaderSize)) / qsizetype(sizeof(float));
+        const qsizetype count = qMin<qsizetype>(pStream->length, available);
+        tempData.resize(count * qsizetype(sizeof(float)), 0x0);
+        memcpy(tempData.data(), message.constData() + iqHeaderSize, tempData.size());
+    }
+    else if (pStream->format == IqInt16) {
+        // --- Native ExpertSDR3 Compliant Int16 Path ---
+        const qsizetype available =
+            (message.size() - qsizetype(iqHeaderSize)) / qsizetype(sizeof(int16_t));
+        const qsizetype count = qMin<qsizetype>(pStream->length, available);
+        
+        // Allocate space matching downstream float requirements
+        tempData.resize(count * qsizetype(sizeof(float)), 0x0);
+        float *outFloats = reinterpret_cast<float *>(tempData.data());
+        const int16_t *inInts = reinterpret_cast<const int16_t *>(message.constData() + iqHeaderSize);
+        
+        // De-interleave and unpack raw integer samples to full-scale float [-1.0f, 1.0f]
+        for (qsizetype i = 0; i < count; ++i) {
+            outFloats[i] = static_cast<float>(inInts[i]) / 32678.0f;
         }
+    }
+    else {
+        // If an unhandled format type arrives, ignore per protocol spec
         return;
     }
 
-    const qsizetype available =
-        (message.size() - qsizetype(iqHeaderSize)) / qsizetype(sizeof(float));
-    const qsizetype count = qMin<qsizetype>(pStream->length, available);
-    QByteArray tempData(count * qsizetype(sizeof(float)), 0x0);
-    memcpy(tempData.data(), message.constData() + iqHeaderSize,
-           tempData.size());
+    // Pass the parsed network audio frame to the radio-hardware bridge loop
     emit sendTCIAudio(tempData);
 }
 
