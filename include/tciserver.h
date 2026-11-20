@@ -63,12 +63,14 @@ class tciServer : public QObject {
         bool connected=true;
         bool rxaudio=false;
         bool txaudio=false;
+        bool streamConfigured = false;   // WSJT-x broken implementation of TCI 1.4
         quint32 sampleType = IqFloat32;  // AUDIO_STREAM_SAMPLE_TYPE (2.1 spec default: float32)
         quint32 channels = 2;            // AUDIO_STREAM_CHANNELS (spec default: 2)
         quint32 samples = 2048;          // AUDIO_STREAM_SAMPLES (spec default at 48 kHz)
         quint32 rxCount = 0;             // packet counter, RX audio stream
         quint32 chronoCount = 0;         // packet counter, TX_CHRONO stream
         QByteArray rxPending;            // mono float32 waiting to fill a packet
+        QByteArray txPending;            // WSJT-x broken implementation of TCI 1.4
     };
 
   public:
